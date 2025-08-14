@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ItemObject : MonoBehaviour
+public interface IInteractable  // 상호작용 인터페이스
 {
+    public void OnInteract();
+}
 
-    void Start()
+public class ItemObject : MonoBehaviour, IInteractable
+{
+    public void OnInteract()
     {
-        
-    }
-
-
-    void Update()
-    {
-        
+        // 자원 아이템 데이터 저장
+        // 자원 채취 플레이어 인벤토리에 추가
     }
 }

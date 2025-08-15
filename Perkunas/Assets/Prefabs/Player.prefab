@@ -237,7 +237,19 @@ MonoBehaviour:
     m_ActionId: 40b4c04d-89d7-4378-b80b-86cd2ce63791
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3976193111353358288}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a52265ef-a55d-4b41-ae22-98f795fe20c5
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
@@ -283,10 +295,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  jumpPower: 80
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 55
   cameraContainer: {fileID: 5673495782077734058}
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.1
+  detectiveRaydistance: 3
+  detectiveLayerMask:
+    serializedVersion: 2
+    m_Bits: 23
 --- !u!1 &6442911693250202473
 GameObject:
   m_ObjectHideFlags: 0

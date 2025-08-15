@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
+    public float jumpPower;
     private Vector2 curMovementInput;
+    public LayerMask groundLayerMask;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -17,6 +19,9 @@ public class PlayerController : MonoBehaviour
     public float lookSensitivity;
     private Vector2 mouseDelta;
 
+    [Header("Ray config")]
+    public float detectiveRaydistance = 3f;
+    public LayerMask detectiveLayerMask;
 
     private new Rigidbody rigidbody;
 
@@ -35,6 +40,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+        DetectiveRayInFront();
     }
 
     private void LateUpdate()
@@ -63,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed)
         {
             curMovementInput = context.ReadValue<Vector2>();
         }
@@ -76,5 +82,42 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started && isGrounded())
+        {
+            rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+        }
+    }
+
+    bool isGrounded()
+    {
+        Ray[] rays = new Ray[4]
+        {
+            new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
+        };
+
+        for(int i = 0; i < rays.Length; i++)
+        {
+            if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void DetectiveRayInFront()
+    {
+        Ray ray = new Ray(cameraContainer.position, cameraContainer.forward);
+        if(Physics.Raycast(ray, out RaycastHit hit , detectiveRaydistance, detectiveLayerMask))
+        {
+            Debug.Log("감지된 오브젝트 : " + hit.collider.name);
+        }
     }
 }

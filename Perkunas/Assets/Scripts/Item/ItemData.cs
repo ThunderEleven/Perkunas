@@ -13,7 +13,7 @@ public class ItemData : ScriptableObject
     [Header("Info")]
     public string displayName;
     public string description;
-    public ItemType ItemType;
+    public ItemType itemType;
     public Sprite icon;
     public GameObject dropPrefab;
 

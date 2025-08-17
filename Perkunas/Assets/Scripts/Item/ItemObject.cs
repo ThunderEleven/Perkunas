@@ -65,8 +65,7 @@ public class ItemObject : MonoBehaviour, IInteractable
         }
         else
         {
-            // 풀 정보가 없으면 파괴(예외)
-            Destroy(gameObject);
+            Destroy(gameObject); // 아니면 파괴
         }
     }
 }

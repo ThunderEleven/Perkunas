@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 6057910365079271353}
   - component: {fileID: 267664450682036621}
   - component: {fileID: 1232331933569727480}
-  - component: {fileID: 9057337502799863050}
   m_Layer: 6
   m_Name: Resource_Tree
   m_TagString: Untagged
@@ -152,32 +151,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  maxHealth: 3
   capacity: 0
---- !u!54 &9057337502799863050
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6860223857019414868}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  dropCountPerHit: 1
+  respawnTime: 30
+  dropItemData: {fileID: 0}
+  dropPool: {fileID: 0}
+  dropOffsetUp: 0.5
+  dropSpreadRadius: 0.3

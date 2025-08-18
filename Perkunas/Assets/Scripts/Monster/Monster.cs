@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public enum AIState
 {
@@ -10,7 +12,7 @@ public enum AIState
     Attacking
 }
 
-
+[Serializable]
 public class Monster : MonoBehaviour
 {
     [Header("Stats")] 
@@ -20,9 +22,9 @@ public class Monster : MonoBehaviour
     // TODO : need drop item 
 
     [Header("AI")] 
-    private NavMeshAgent agent;
+    protected NavMeshAgent agent;
     public float detectDistance;
-    private AIState aiState;
+    protected AIState aiState;
 
     [Header("Wandering")] 
     public float minWanderDistance;
@@ -33,20 +35,22 @@ public class Monster : MonoBehaviour
     [Header("Attacking")] 
     public int damage;
     public float attackRate;
-    private float lastAttackTime;
+    protected float lastAttackTime;
     public float attackDistance;
 
-    private float playerDistance;
+    protected float playerDistance;
 
     public float fieldOfView = 120f;
     
     // TODO : ADD Animator / Renderer 
+    protected Animator animator;
+    protected SkinnedMeshRenderer[] meshRenderers;
     
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        // animator = GetComponent<Animator>();
-        // meshRenders = GetComponentsInChildren<SkinnedMeshRenderer>();
+        animator = GetComponent<Animator>();
+        meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
 
     void Start()
@@ -57,11 +61,12 @@ public class Monster : MonoBehaviour
 
     void Update()
     {
-        // 플레이어와 NPC간의 거리 계산
-        playerDistance = Vector3.Distance(PlayerManager.Player.transform.position, transform.position);
+        // 플레이어와 몬스터간의 거리 계산
+        playerDistance = Vector3.Distance(CharacterManager.Instance.Player.transform.position, transform.position);
 
         // State가 멈춤 상태가 아니면 Moving 애니메이션 재생
-        // animator.SetBool("Moving", aiState != AIState.Idle);
+        
+        if(animator != null)  animator.SetBool("Moving", aiState != AIState.Idle);
 
         switch (aiState)
         {
@@ -95,8 +100,10 @@ public class Monster : MonoBehaviour
 
                 break;
         }
-
-        // animator.speed = agent.speed / walkSpeed;
+    
+        
+        Debug.Log($"Current State :  {aiState}");
+        if(animator != null) animator.speed = agent.speed / walkSpeed;
     }
 
     void PassiveUpdate()
@@ -146,13 +153,6 @@ public class Monster : MonoBehaviour
 
     void AttackingUpdate()
     {
-        /// 나의 예상
-        /*
-        만약에 플레이어와의 거리가 attackDistance보다 멀면 플레이어 쪽으로 이동
-        아니라면 플레이어를 공격 시도 (시야각 내로 들어왔다는 전제 하에)
-        */
-
-
         // 플레이어와의 거리가 공격 범위 내에 있고, 시야각 내부에 있을 때
         if (playerDistance < attackDistance && IsPlayerInFieldOfView())
         {
@@ -160,9 +160,7 @@ public class Monster : MonoBehaviour
             if (Time.time - lastAttackTime > attackRate)
             {
                 lastAttackTime = Time.time;
-                PlayerManager.Player.controller.GetComponent<IDamagable>().TakeDamage(damage);
-                animator.speed = 1f;
-                animator.SetTrigger("Attack");
+                Attack();
             }
         }
         else // 아닐 때
@@ -174,13 +172,9 @@ public class Monster : MonoBehaviour
                 agent.isStopped = false;
                 NavMeshPath path = new NavMeshPath();
                 // 플레이어한테 갈 수 있으면 감
-                // NavMeshAgent.CalculatePath(Vector3 targetPosition, NavMeshPath path) : targetPosition으로 이동 가능한지 불가능한지 반환함
-                if (agent.CalculatePath(PlayerManager.Player.transform.position, path))
+                if (agent.CalculatePath(CharacterManager.Instance.Player.transform.position, path))
                 {
-                    // 여기 path 안에는 다양한 정보가 있음.
-                    // 애초에 길을 못찾았는지, 아니면 장애물 때문에 갈 수 없는지 등등 자세하게 써있으니까
-                    // 나중에 찾아보기
-                    agent.SetDestination(PlayerManager.Player.transform.position);
+                    agent.SetDestination(CharacterManager.Instance.Player.transform.position);
                 }
                 else // 갈 수 없으면 추적을 멈추고 다시 Wandering 상태로 바꿈
                 {
@@ -203,7 +197,7 @@ public class Monster : MonoBehaviour
         // 시야각 내로 들어왔는지 여부
 
         // 1. 몬스터가 플레이어를 바라보는 방향의 벡터를 만듬 : 플레이어 위치 - 몬스터 위치
-        Vector3 directionToPlayer = PlayerManager.Player.transform.position - transform.position;
+        Vector3 directionToPlayer = CharacterManager.Instance.Player.transform.position - transform.position;
         // 2. 몬스터 위치와 몬스터->플레이어 방향 벡터 간의 각도를 구함
         float angle = Vector3.Angle(transform.position, directionToPlayer);
         // 3. 그 각도가 몬스터의 시야각보다 작으면 true, 아니면 false
@@ -221,33 +215,44 @@ public class Monster : MonoBehaviour
         }
 
         // 데미지 효과 
-        // StartCoroutine(DamageFlash());
+        StartCoroutine(DamageFlash());
     }
 
     void Die()
     {
+        // 몬스터 죽었을 때 아이템 떨구는 코드
+        /*
         for (int i = 0; i < dropOnDeath.Length; i++)
         {
             Instantiate(dropOnDeath[i].dropPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
         }
+        */
         Destroy(gameObject);
     }
 
-    /*
+    public virtual void Attack()
+    {
+        // TODO : 공격 애니메이션 연출 + 데미지 처리 각각의 몬스터에서 필요
+        
+        // CharacterManager.Instance.Player.controller.GetComponent<IDamagable>().TakeDamage(damage);
+    }
+
+    
     IEnumerator DamageFlash()
     {
-        for (int i = 0; i < meshRenders.Length; i++)
+    // 데미지 효과 코드
+        for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenders[i].material.color = new Color(1.0f, 0.6f, 0.6f);
+            meshRenderers[i].material.color = new Color(1.0f, 0.6f, 0.6f);
         }
 
         yield return new WaitForSeconds(0.1f);
 
-        for (int i = 0; i < meshRenders.Length; i++)
+        for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenders[i].material.color = Color.white;
+            meshRenderers[i].material.color = Color.white;
         }
     }
-    */
+    
 }
 

@@ -3596,8 +3596,9 @@ GameObject:
   m_Component:
   - component: {fileID: 722924293}
   - component: {fileID: 722924294}
+  - component: {fileID: 722924295}
   m_Layer: 0
-  m_Name: NPC
+  m_Name: example
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3631,7 +3632,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4105f4cfb3f4c7948b37541d0b6f1b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: example
+  npcName: 
+  dialogue: []
+--- !u!65 &722924295
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722924292}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &728482764
 GameObject:
   m_ObjectHideFlags: 0
@@ -6145,6 +6168,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6117802733548725677, guid: 93d30fcc4110e63418e0595fe86527b4, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6899,7 +6926,7 @@ GameObject:
   - component: {fileID: 1303006597}
   - component: {fileID: 1303006596}
   m_Layer: 0
-  m_Name: NpcDialogText
+  m_Name: NpcDialogueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7519,6 +7546,7 @@ GameObject:
   - component: {fileID: 1493894352}
   - component: {fileID: 1493894351}
   - component: {fileID: 1493894350}
+  - component: {fileID: 1493894353}
   m_Layer: 0
   m_Name: PopUpUICanvas
   m_TagString: Untagged
@@ -7610,6 +7638,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &1493894353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493894348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d0b9c67508c7642b8e0cb2c80ac72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TalkingUI: {fileID: 1295978637}
+  npcNameText: {fileID: 2035243566}
+  npcDialogueText: {fileID: 1303006596}
+  delay: 0.125
 --- !u!1 &1504978864
 GameObject:
   m_ObjectHideFlags: 0

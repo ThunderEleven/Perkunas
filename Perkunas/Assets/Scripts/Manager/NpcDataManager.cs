@@ -7,7 +7,7 @@ public class DialogueEntry
 {
     public int id;
     public string npcName;
-    public string text;
+    public string dialogText;
 }
 
 public class NpcDataManager : MonoSingleton<NpcDataManager>
@@ -47,14 +47,14 @@ public class NpcDataManager : MonoSingleton<NpcDataManager>
             DialogueEntry entry = new DialogueEntry();
             entry.id = (int)row["대화 번호"];
             entry.npcName = row["npc 이름"].ToString();
-            entry.text = row["대화 내용"].ToString();
+            entry.dialogText = row["대화 내용"].ToString();
             dialogues.Add(entry);
         }
 
         // 확인용
         foreach (var d in dialogues)
         {
-            Debug.Log($"[{d.id}] {d.npcName}: {d.text}");
+            Debug.Log($"[{d.id}] {d.npcName}: {d.dialogText}");
         }
     }
     

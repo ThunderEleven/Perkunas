@@ -102,7 +102,7 @@ public class Monster : MonoBehaviour
         }
     
         
-        Debug.Log($"Current State :  {aiState}");
+        // Debug.Log($"Current State :  {aiState}");
         if(animator != null) animator.speed = agent.speed / walkSpeed;
     }
 
@@ -157,6 +157,16 @@ public class Monster : MonoBehaviour
         if (playerDistance < attackDistance && IsPlayerInFieldOfView())
         {
             agent.isStopped = true;
+
+            // 플레이어 방향 바라보기
+            Vector3 lookDirection = (CharacterManager.Instance.Player.transform.position - transform.position).normalized;
+            lookDirection.y = 0; 
+            if (lookDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            }
+
             if (Time.time - lastAttackTime > attackRate)
             {
                 lastAttackTime = Time.time;

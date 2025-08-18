@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum ItemType
 {
-    Resource
+    Resource,
+    Building
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]

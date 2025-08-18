@@ -17,9 +17,13 @@ public class Interaction : MonoBehaviour
     private IInteractable curinteractable;
 
     public TextMeshProUGUI prompText;
-    private new Camera camera;
+    private Camera camera;
 
     // Update is called once per frame
+    private void Start()
+    {
+        camera = Camera.main;
+    }
     void Update()
     {
         if (Time.time - lastCheckTime < checkRate)
@@ -32,13 +36,14 @@ public class Interaction : MonoBehaviour
             {
                 curInteractGameObject = hit.collider.gameObject;
                 curinteractable = hit.collider.GetComponent<IInteractable>();
-                SetPormpText();
+                //SetPormpText();
+                Debug.Log($"감지된 오브젝트: {hit.collider.name}");
             }
             else
             {
                 curInteractGameObject = null;
                 curinteractable = null;
-                prompText.gameObject.SetActive(false);
+                //prompText.gameObject.SetActive(false);
             }
         }
     }

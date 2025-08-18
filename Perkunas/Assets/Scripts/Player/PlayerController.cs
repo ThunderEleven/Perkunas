@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,11 +20,11 @@ public class PlayerController : MonoBehaviour
     public float lookSensitivity;
     private Vector2 mouseDelta;
 
-    [Header("Ray config")]
-    public float detectiveRaydistance = 3f;
-    public LayerMask detectiveLayerMask;
-
     private new Rigidbody rigidbody;
+
+    public bool canLook = true;
+
+    public Action inventory;
 
     private void Awake()
     {
@@ -40,12 +41,14 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        DetectiveRayInFront();
     }
 
     private void LateUpdate()
     {
-        CameraLook();
+        if(canLook)
+        {
+            CameraLook();
+        }
     }
 
     void Move()
@@ -111,13 +114,18 @@ public class PlayerController : MonoBehaviour
         }
         return false;
     }
-
-    void DetectiveRayInFront()
+    public void OnInventoryButton(InputAction.CallbackContext callbackContext)
     {
-        Ray ray = new Ray(cameraContainer.position, cameraContainer.forward);
-        if(Physics.Raycast(ray, out RaycastHit hit , detectiveRaydistance, detectiveLayerMask))
+        if (callbackContext.phase == InputActionPhase.Started)
         {
-            Debug.Log("감지된 오브젝트 : " + hit.collider.name);
+            inventory?.Invoke();
+            ToggleCursor();
         }
+    }
+    void ToggleCursor()
+    {
+        bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
+        canLook = !toggle;
     }
 }

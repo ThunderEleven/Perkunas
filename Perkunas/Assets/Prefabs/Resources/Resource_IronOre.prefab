@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 5326215579398501924}
   - component: {fileID: 700595073680893005}
   - component: {fileID: 8066785434513027728}
+  - component: {fileID: -5782649848359480359}
   m_Layer: 6
   m_Name: Resource_IronOre
   m_TagString: Resource
@@ -174,10 +175,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  capacity: 0
+  capacity: 5
   dropCountPerHit: 1
   respawnTime: 30
-  dropItemData: {fileID: 0}
-  dropPool: {fileID: 0}
+  dropItemData: {fileID: 11400000, guid: 1923781e900399949b561b7453e67d10, type: 2}
+  dropPool: {fileID: -5782649848359480359}
   dropOffsetUp: 0.5
   dropSpreadRadius: 0.3
+--- !u!114 &-5782649848359480359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4126698249830201196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fe96b6980e525409a32fc6e53532d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6342741255022882528, guid: 0ef09f2b88f91084a9a5d365d8fe2330, type: 3}
+  initialSize: 10

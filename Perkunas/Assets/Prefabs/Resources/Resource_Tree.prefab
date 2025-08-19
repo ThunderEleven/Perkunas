@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6057910365079271353}
   - component: {fileID: 267664450682036621}
   - component: {fileID: 1232331933569727480}
+  - component: {fileID: 5728636248204535868}
   m_Layer: 6
   m_Name: Resource_Tree
   m_TagString: Untagged
@@ -151,10 +152,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  capacity: 0
+  capacity: 3
   dropCountPerHit: 1
   respawnTime: 30
-  dropItemData: {fileID: 0}
-  dropPool: {fileID: 0}
+  dropItemData: {fileID: 11400000, guid: 26ca027ae88415446ada0be8ca824c76, type: 2}
+  dropPool: {fileID: 5728636248204535868}
   dropOffsetUp: 0.5
   dropSpreadRadius: 0.3
+--- !u!114 &5728636248204535868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860223857019414868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fe96b6980e525409a32fc6e53532d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5809123457131274735, guid: aae0f7751bf658545a6731c9bc6d2883, type: 3}
+  initialSize: 10

@@ -7,7 +7,7 @@ public enum ResourceType
 {
     Wood,
     Stone,
-    Ore,
+    Ore
 }
 
 public class Resource : MonoBehaviour

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uB3CC"
   description: 
-  ItemType: 0
+  itemType: 0
   icon: {fileID: 0}
-  dropPrefab: {fileID: 0}
+  dropPrefab: {fileID: 5785506702161948928, guid: b2824ee9dcdd7d043905de58567afb31, type: 3}
   canStack: 1
   maxStackAmount: 64

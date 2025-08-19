@@ -6,9 +6,7 @@ public enum ResourceType
 {
     Wood,
     Stone,
-    Ore,
-    Dirt,
-    Sand
+    Ore
 }
 
 public class Resource : MonoBehaviour
@@ -26,9 +24,21 @@ public class Resource : MonoBehaviour
     public float dropSpreadRadius = 0.3f;// 약간의 랜덤 위치 퍼짐
 
     private int _currentCapacity;        // 현재 캐는 횟수
+
+    // 리소스를 캤을때 비활성화 활성화되게
+    private Collider _collider;                 // 리소스 콜라이더
+    private Renderer[] _renderers;              // 렌더러들
+
+    private void Awake()
+    {
+        _collider = GetComponent<Collider>();
+        _renderers = GetComponentsInChildren<Renderer>();
+    }
+
     private void OnEnable()
     {
         _currentCapacity = capacity; // 리젠 시 캐는횟수 리젠
+        EnableResource(true);   // 리젠시 콜라이더 활성화
     }
 
     public void OnInteract()
@@ -75,14 +85,25 @@ public class Resource : MonoBehaviour
         // 다캐면 비활성 + 리젠 코루틴
         if (_currentCapacity <= 0)
         {
-            gameObject.SetActive(false);
+            EnableResource(false);
             StartCoroutine(RespawnAfter(respawnTime));
+        }
+    }
+
+    private void EnableResource(bool enable)    // 리소스 콜라이더,렌더러 활성화, 비활성화 메서드
+    {
+        if (_collider != null) _collider.enabled = enable;
+        foreach (var r in _renderers)
+        {
+            r.enabled = enable;
         }
     }
 
     private IEnumerator RespawnAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        gameObject.SetActive(true); // OnEnable에서 용량 리셋됨
+        _currentCapacity = capacity;
+        EnableResource(true);  // 리소스 스폰시 활성화
+        Debug.Log($"[Resource] {gameObject.name} 리스폰");
     }
 }

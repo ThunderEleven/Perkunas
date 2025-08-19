@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6446262631507988558}
   - component: {fileID: 6864679287447981935}
   - component: {fileID: 981003934213907196}
+  - component: {fileID: -3491765923657716029}
   m_Layer: 6
   m_Name: Resource_Rock
   m_TagString: Untagged
@@ -136,8 +137,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.301391, y: 3.014874, z: 0.35478264}
-  m_Center: {x: -0.0146968365, y: 1.4544001, z: -0.013989605}
+  m_Size: {x: 1.5791974, y: 1.0402042, z: 1.5397437}
+  m_Center: {x: 0.09994578, y: 0.46706527, z: 0.025069714}
 --- !u!114 &981003934213907196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,11 +151,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9047dd9b583cc42b917026e1253af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  capacity: 0
+  type: 1
+  capacity: 4
   dropCountPerHit: 1
   respawnTime: 30
-  dropItemData: {fileID: 0}
-  dropPool: {fileID: 0}
+  dropItemData: {fileID: 11400000, guid: 1184fa16e0fc09940a431794c6cf6ea7, type: 2}
+  dropPool: {fileID: -3491765923657716029}
   dropOffsetUp: 0.5
   dropSpreadRadius: 0.3
+--- !u!114 &-3491765923657716029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3474841221218759277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fe96b6980e525409a32fc6e53532d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5785506702161948928, guid: b2824ee9dcdd7d043905de58567afb31, type: 3}
+  initialSize: 10

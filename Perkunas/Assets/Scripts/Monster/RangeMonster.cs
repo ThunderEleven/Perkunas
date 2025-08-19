@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class RangeMonster : Monster
 {
-    [Header("Range Weapon Settings")] 
-    public GameObject projectilePrefab;
     public Transform projectileSpawn;
-    public float projectileSpeed;
-    public Vector3 projectileRotation;
-    
     public override void Attack()
     {
         base.Attack();
@@ -19,10 +14,10 @@ public class RangeMonster : Monster
             Debug.Log("원거리 공격");
             animator.SetTrigger("Attack");
             Vector3 playerDirection = (CharacterManager.Instance.Player.transform.position - transform.position).normalized;
-            GameObject projectile = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.LookRotation(playerDirection));
-            projectile.transform.Rotate(projectileRotation);
+            GameObject projectile = Instantiate(data.projectilePrefab, projectileSpawn.position, Quaternion.LookRotation(playerDirection));
+            projectile.transform.Rotate(data.projectileRotation);
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            if(rb != null) rb.AddForce(playerDirection * projectileSpeed, ForceMode.Impulse);
+            if(rb != null) rb.AddForce(playerDirection * data.projectileSpeed, ForceMode.Impulse);
         }
     }
 }

@@ -39,6 +39,7 @@ public class Monster : MonoBehaviour
     protected Animator animator;
     protected SkinnedMeshRenderer[] meshRenderers;
     protected float curHealth;
+    private Coroutine damagedCoroutine;
 
     public void Init(MonsterManager manager, Vector3 groupKey)
     {   
@@ -266,12 +267,17 @@ public class Monster : MonoBehaviour
         curHealth -= damage;
         if (curHealth <= 0)
         {
+            if(damagedCoroutine != null) StopCoroutine(damagedCoroutine);
             // 죽어야됨
             Die();
         }
+        else
+        {
+            damagedCoroutine = StartCoroutine(DamageFlash());
+        }
 
         // 데미지 효과 
-        StartCoroutine(DamageFlash());
+        
     }
 
     void Die()
@@ -283,8 +289,8 @@ public class Monster : MonoBehaviour
             Instantiate(dropOnDeath[i].dropPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
         }
         */
-        onDeath?.Invoke(groupKey);
         gameObject.SetActive(false);
+        onDeath?.Invoke(groupKey);
     }
 
     public virtual void Attack()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monster_Mage
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 1340796939526148812, guid: 77615e84c4e638b49b1b6d2254aaa427, type: 3}
-  maxHealth: 0
+  maxHealth: 1
   walkSpeed: 1
   runSpeed: 2
   detectDistance: 15

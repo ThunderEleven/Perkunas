@@ -46,7 +46,6 @@ public class MonsterManager : MonoSingleton<MonsterManager>
                     }
                     return obj;
                 },
-                actionOnGet: (obj) => { obj.SetActive(true); },
                 actionOnRelease: (obj) => { obj.SetActive(false); },
                 actionOnDestroy: (obj) => { Destroy(obj); },
                 collectionCheck: true,
@@ -60,6 +59,7 @@ public class MonsterManager : MonoSingleton<MonsterManager>
         // 초기 스폰
         foreach (var pos in spawnPositions)
         {
+            Debug.Log($"{pos}에서 생성됨");
             SpawnGroupAt(pos);
         }
     }
@@ -120,26 +120,33 @@ public class MonsterManager : MonoSingleton<MonsterManager>
         if (!groupPools.ContainsKey(pos)) return;
         // Get 할때 GameObject SetActive True 해놔서 Get만 해도 됨
         var group = groupPools[pos].Get();
+        group.SetActive(true);
+        if(!activeMonsterGroups.ContainsKey(pos))
+            activeMonsterGroups.Add(pos, group);
+        
+        // group이 active 되어도 안에 있는 애들이 inactive라 다시 세팅 해줘야함
+        foreach (var m in group.GetComponentsInChildren<Monster>(true))
+        {
+            m.gameObject.SetActive(true);
+        }
     }
 
     public void OnMonsterDeath(Vector3 groupKey)
     {
         if (!groupPools.ContainsKey(groupKey)) return;
         
-        GameObject group = groupPools[groupKey].Get();
-        // 일단 다 죽은걸로 해놓고 확인함
-        bool allDead = true;
-        foreach (var m in group.GetComponentsInChildren<Monster>())
-        {
-            if (m != null && m.gameObject.activeInHierarchy)
-            {
-                allDead = false;
-                break;
-            }
-        }
+        GameObject group = activeMonsterGroups[groupKey];
+        bool allDead = false;
+        
+        // 활성화 된 애들이 한 명도 없으면 다 죽은거
+        int length = group.GetComponentsInChildren<Monster>(false).Length;
+        if (length == 0)
+            allDead = true;
 
         if (allDead)
         {
+            // 풀에 돌려주기
+            groupPools[groupKey].Release(group);
             StartCoroutine(RespawnAfterDelay(groupKey));
         }
     }
@@ -147,6 +154,7 @@ public class MonsterManager : MonoSingleton<MonsterManager>
     private IEnumerator RespawnAfterDelay(Vector3 groupKey)
     {
         yield return new WaitForSeconds(respawnDelay);
+        Debug.Log("몬스터 재생성");
         SpawnGroupAt(groupKey);
     }
 }

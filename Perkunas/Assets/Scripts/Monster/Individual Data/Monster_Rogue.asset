@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monster_Rogue
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 5140021308423148447, guid: 4e48bc10f90585b45ba7ecb69ce145bc, type: 3}
-  maxHealth: 0
+  maxHealth: 1
   walkSpeed: 2
   runSpeed: 4
   detectDistance: 8
@@ -27,6 +27,5 @@ MonoBehaviour:
   fieldOfView: 120
   isRangeMonster: 1
   projectilePrefab: {fileID: 5121232222618841364, guid: 02ffdd7a9b8788f47bf95b9f5141c572, type: 3}
-  projectileSpawn: {fileID: 0}
   projectileSpeed: 2
   projectileRotation: {x: -90, y: 0, z: 0}

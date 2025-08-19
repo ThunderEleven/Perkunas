@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monster_Warrior
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 4780859905220947627, guid: 7a2468e5b97543f49a34ab199a351b95, type: 3}
-  maxHealth: 10
+  maxHealth: 1
   walkSpeed: 3
   runSpeed: 6
   detectDistance: 6
@@ -27,6 +27,5 @@ MonoBehaviour:
   fieldOfView: 120
   isRangeMonster: 0
   projectilePrefab: {fileID: 0}
-  projectileSpawn: {fileID: 0}
   projectileSpeed: 0
   projectileRotation: {x: 0, y: 0, z: 0}

@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3356591245957601639}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.12, y: 0.39, z: 2.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -159,8 +159,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.301391, y: 3.014874, z: 0.35478264}
-  m_Center: {x: -0.0146968365, y: 1.4544001, z: -0.013989605}
+  m_Size: {x: 1.7995075, y: 1.6944414, z: 1.3788886}
+  m_Center: {x: 0.07972509, y: 0.60471255, z: 0.00349617}
 --- !u!114 &8066785434513027728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9047dd9b583cc42b917026e1253af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   capacity: 0
   dropCountPerHit: 1
   respawnTime: 30

@@ -6175,7 +6175,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6117802733548725677, guid: 93d30fcc4110e63418e0595fe86527b4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1542856270}
   m_SourcePrefab: {fileID: 100100000, guid: 93d30fcc4110e63418e0595fe86527b4, type: 3}
 --- !u!1001 &1142903674
 PrefabInstance:
@@ -8038,6 +8041,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daf7c6356a0eeef48b36062fdc6a141d, type: 3}
+--- !u!1 &1542856263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6117802733548725677, guid: 93d30fcc4110e63418e0595fe86527b4, type: 3}
+  m_PrefabInstance: {fileID: 1140730961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1542856270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542856263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebed3b34743058a458fa28a00da77bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curHp: 0
+  maxHp: 100
+  startHp: 50
+  passiveHp: 10
+  hpUIBar: {fileID: 1648897510}
+  noHungerHealthDecay: 5
+  curStamina: 0
+  maxStamina: 100
+  startStamina: 50
+  passiveStamina: 10
+  staminaUIBar: {fileID: 87076747}
+  curHunger: 0
+  maxHunger: 100
+  startHunger: 50
+  passiveHunger: 5
+  hungerUIBar: {fileID: 1623769269}
+  curThirst: 0
+  maxThirst: 100
+  startThirst: 50
+  passiveThirst: 5
+  thirstUIBar: {fileID: 750213197}
 --- !u!1 &1567120428
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,8 +8,6 @@ public enum ResourceType
     Wood,
     Stone,
     Ore,
-    Dirt,
-    Sand
 }
 
 public class Resource : MonoBehaviour

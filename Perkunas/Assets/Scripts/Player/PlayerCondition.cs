@@ -4,7 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerCondition : MonoBehaviour
+public interface IDamagable
+{
+    void TakePhysicalDamage(int damageAmount);
+}
+
+public class PlayerCondition : MonoBehaviour, IDamagable
 {
     [Header("체력 관련")]
     public float curHp;      // 현재 체력
@@ -71,7 +76,13 @@ public class PlayerCondition : MonoBehaviour
             SubtractHp(noHungerHealthDecay * Time.deltaTime);
         }
     }
-    
+
+    public void TakePhysicalDamage(int damageAmount)
+    {
+        SubtractHp(damageAmount);
+        onTakeDamage?.Invoke();
+    }
+
     // 각 컨디션 별로 add와 subtract 메서드들 구현 -> switch로 한번에 통합?
     public void AddHp(float amount)
     {

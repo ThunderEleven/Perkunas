@@ -18,6 +18,9 @@ public class Monster : MonoBehaviour
 {
     // Data Setting
     public MonsterData data;
+    [HideInInspector] public MonsterManager manager;
+    [HideInInspector] public Vector3 groupKey;
+    [HideInInspector] public Action<Vector3> onDeath; 
     
     // AI Setting
     protected NavMeshAgent agent;
@@ -36,6 +39,13 @@ public class Monster : MonoBehaviour
     protected Animator animator;
     protected SkinnedMeshRenderer[] meshRenderers;
     protected float curHealth;
+
+    public void Init(MonsterManager manager, Vector3 groupKey)
+    {   
+        this.manager = manager; 
+        this.groupKey = groupKey;
+    }
+    
     
     private void Awake()
     {
@@ -273,15 +283,12 @@ public class Monster : MonoBehaviour
             Instantiate(dropOnDeath[i].dropPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
         }
         */
-        Destroy(gameObject);
+        onDeath?.Invoke(groupKey);
+        gameObject.SetActive(false);
     }
 
     public virtual void Attack()
-    {
-        // TODO : 공격 애니메이션 연출 + 데미지 처리 각각의 몬스터에서 필요
-        
-        // CharacterManager.Instance.Player.controller.GetComponent<IDamagable>().TakeDamage(damage);
-    }
+    {  }
 
     
     IEnumerator DamageFlash()

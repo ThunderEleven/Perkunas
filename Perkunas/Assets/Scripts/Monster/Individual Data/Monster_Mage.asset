@@ -25,8 +25,7 @@ MonoBehaviour:
   attackRate: 4
   attackDistance: 15
   fieldOfView: 120
-  isRangeMonster: 0
+  isRangeMonster: 1
   projectilePrefab: {fileID: 5746508365519237414, guid: 6e2d8bec1934c6e459abd63a046b170d, type: 3}
-  projectileSpawn: {fileID: 0}
   projectileSpeed: 2
   projectileRotation: {x: -90, y: 0, z: 0}

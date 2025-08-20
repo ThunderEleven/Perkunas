@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 4916419428411000032}
   - component: {fileID: 5322976225118821058}
   - component: {fileID: 3976193111353358288}
+  - component: {fileID: 4478943265515994737}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -257,7 +258,19 @@ MonoBehaviour:
     m_ActionId: a6ff607a-4062-4ec4-ad72-ad0e2cd3aabd
     m_ActionName: Player/Inventory[/Keyboard/tab]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4478943265515994737}
+        m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
+        m_MethodName: OnInteractInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 21c922e1-1554-4d10-b6ac-77dbf8d49d3a
     m_ActionName: Player/Interaction[/Keyboard/e]
   - m_PersistentCalls:
@@ -298,15 +311,30 @@ MonoBehaviour:
   jumpPower: 80
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 119
   cameraContainer: {fileID: 5673495782077734058}
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.1
-  detectiveRaydistance: 3
-  detectiveLayerMask:
+--- !u!114 &4478943265515994737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117802733548725677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d72c4e13b342749bc635b4036ee216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkRate: 0.05
+  maxCheckDistance: 3
+  layerMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 64
+  curInteractGameObject: {fileID: 0}
+  prompText: {fileID: 0}
 --- !u!1 &6442911693250202473
 GameObject:
   m_ObjectHideFlags: 0

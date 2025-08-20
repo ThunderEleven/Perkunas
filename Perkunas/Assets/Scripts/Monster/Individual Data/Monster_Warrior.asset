@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab294481a81fe5d4d9d77b5f472dab83, type: 3}
+  m_Name: Monster_Warrior
+  m_EditorClassIdentifier: 
+  monsterPrefab: {fileID: 4780859905220947627, guid: 7a2468e5b97543f49a34ab199a351b95, type: 3}
+  maxHealth: 1
+  walkSpeed: 3
+  runSpeed: 6
+  detectDistance: 6
+  minWanderDistance: 2
+  maxWanderDistance: 5
+  minWanderWaitTime: 2
+  maxWanderWaitTime: 3
+  damage: 0
+  attackRate: 5
+  attackDistance: 2
+  fieldOfView: 120
+  isRangeMonster: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 0
+  projectileRotation: {x: 0, y: 0, z: 0}

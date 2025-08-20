@@ -12,7 +12,7 @@ public class DamageIndicator : MonoBehaviour
     private void Start()
     {
         // 데미지 받을 때 효과를 PlayerCondition의 데미지 Action에 추가
-        // CharacterManager.Instance.Player.condition.onTakeDamage += Flash;
+        CharacterManager.Instance.Player.condition.onTakeDamage += Flash;
     }
 
     public void Flash()
@@ -31,7 +31,7 @@ public class DamageIndicator : MonoBehaviour
 
     private IEnumerator FadeAway()
     {
-        float startAlpha = 0.3f;
+        float startAlpha = 0.2f;
         float a = startAlpha;
 
         while(a > 0.0f)

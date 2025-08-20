@@ -9,53 +9,58 @@ public enum AIState
 {
     Idle,
     Wandering,
-    Attacking
+    Attacking,
+    Returning
 }
 
 [Serializable]
 public class Monster : MonoBehaviour
 {
-    [Header("Stats")] 
-    public int health;
-    public float walkSpeed;
-    public float runSpeed;
-    // TODO : need drop item 
-
-    [Header("AI")] 
+    // Data Setting
+    public MonsterData data;
+    [HideInInspector] public MonsterManager manager;
+    [HideInInspector] public Vector3 groupKey;
+    [HideInInspector] public Action<Vector3> onDeath; 
+    
+    // AI Setting
     protected NavMeshAgent agent;
-    public float detectDistance;
     protected AIState aiState;
+    protected bool isReturning = false;
+    protected Vector3 spawnPosition;
+    protected float spawnDistance;
+    protected const float MaxDistFromSpawn = 10f;
 
-    [Header("Wandering")] 
-    public float minWanderDistance;
-    public float maxWanderDistance;
-    public float minWanderWaitTime;
-    public float maxWanderWaitTime;
-
-    [Header("Attacking")] 
-    public int damage;
-    public float attackRate;
+    // Attack Setting
     protected float lastAttackTime;
-    public float attackDistance;
-
     protected float playerDistance;
 
-    public float fieldOfView = 120f;
     
-    // TODO : ADD Animator / Renderer 
+    // Local Variables 
     protected Animator animator;
     protected SkinnedMeshRenderer[] meshRenderers;
+    protected float curHealth;
+    private Coroutine damagedCoroutine;
+
+    public void Init(MonsterManager manager, Vector3 groupKey)
+    {   
+        this.manager = manager; 
+        this.groupKey = groupKey;
+    }
+    
     
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        if(data == null) Debug.LogError("There's no monster data");
+        spawnPosition = transform.position;
     }
 
     void Start()
     {
         SetState(AIState.Wandering);
+        curHealth = data.maxHealth;
     }
 
 
@@ -63,7 +68,14 @@ public class Monster : MonoBehaviour
     {
         // 플레이어와 몬스터간의 거리 계산
         playerDistance = Vector3.Distance(CharacterManager.Instance.Player.transform.position, transform.position);
-
+        spawnDistance = Vector3.Distance(spawnPosition, transform.position);
+        // 스폰 위치와 너무 떨어져있으면 돌아가도록 함
+        if (!isReturning && spawnDistance > MaxDistFromSpawn)
+        {
+            SetState(AIState.Returning);
+            isReturning = true;
+        }
+        
         // State가 멈춤 상태가 아니면 Moving 애니메이션 재생
         
         if(animator != null)  animator.SetBool("Moving", aiState != AIState.Idle);
@@ -73,6 +85,10 @@ public class Monster : MonoBehaviour
             case AIState.Idle:
             case AIState.Wandering:
                 PassiveUpdate();
+                break;
+            case AIState.Returning:
+                // Debug.Log("너무 멀어짐. 돌아감.");
+                ReturningUpdate();
                 break;
             case AIState.Attacking:
                 AttackingUpdate();
@@ -87,23 +103,26 @@ public class Monster : MonoBehaviour
         switch (aiState)
         {
             case AIState.Idle:
-                agent.speed = walkSpeed;
+                agent.speed = data.walkSpeed;
                 agent.isStopped = true; // agent 멈추기
                 break;
             case AIState.Wandering:
-                agent.speed = walkSpeed;
+                agent.speed = data.walkSpeed;
                 agent.isStopped = false;
                 break;
             case AIState.Attacking:
-                agent.speed = runSpeed;
+                agent.speed = data.runSpeed;
                 agent.isStopped = false;
-
+                break;
+            case AIState.Returning:
+                agent.speed = data.walkSpeed;
+                agent.isStopped = false;
                 break;
         }
     
         
         // Debug.Log($"Current State :  {aiState}");
-        if(animator != null) animator.speed = agent.speed / walkSpeed;
+        if(animator != null) animator.speed = agent.speed / data.walkSpeed;
     }
 
     void PassiveUpdate()
@@ -113,10 +132,10 @@ public class Monster : MonoBehaviour
             SetState(AIState.Idle); // 대기 상태로 전환.
             // 현재 상태가 방황함 + NavMeshAgent가 목표 지점까지 남은 거리가 거의 없을때
             // 랜덤 시간 뒤에 새 위치 찾는 함수 호출
-            Invoke("WanderToNewLocation", Random.Range(minWanderWaitTime, maxWanderWaitTime));
+            Invoke("WanderToNewLocation", Random.Range(data.minWanderWaitTime, data.maxWanderWaitTime));
         }
 
-        if (playerDistance < detectDistance)
+        if (playerDistance < data.detectDistance)
         {
             SetState(AIState.Attacking);
             AttackingUpdate();
@@ -141,20 +160,48 @@ public class Monster : MonoBehaviour
         do
         {
             NavMesh.SamplePosition(
-            transform.position + (Random.onUnitSphere * Random.Range(minWanderDistance, maxWanderDistance)),
+            transform.position + (Random.onUnitSphere * Random.Range(data.minWanderDistance, data.maxWanderDistance)),
             out hit,
-            maxWanderDistance,
+            data.maxWanderDistance,
             NavMesh.AllAreas);
             i++;
-        } while (Vector3.Distance(transform.position, hit.position) > detectDistance || i <= 30);
+        } while (Vector3.Distance(transform.position, hit.position) > data.detectDistance || i <= 30);
 
         return hit.position;
+    }
+
+    void ReturningUpdate()
+    {
+        // 스폰 위치와 가까워지면 다시 wandering으로 변경
+        if (isReturning && agent.remainingDistance < 0.1f)
+        {
+            SetState(AIState.Wandering);
+            isReturning = false;
+        }
+        else if (isReturning && spawnDistance > MaxDistFromSpawn)
+        {
+            // 고개 돌리기 전에 멈춤
+            agent.isStopped = true;
+
+            // 스폰 위치 바라보기
+            Vector3 lookDirection = (spawnPosition - transform.position).normalized;
+            lookDirection.y = 0; 
+            if (lookDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            }
+            
+            // 고개 돌리고 나서 이제 움직이도록 설정
+            agent.isStopped = false;
+            agent.SetDestination(spawnPosition);
+        }
     }
 
     void AttackingUpdate()
     {
         // 플레이어와의 거리가 공격 범위 내에 있고, 시야각 내부에 있을 때
-        if (playerDistance < attackDistance && IsPlayerInFieldOfView())
+        if (playerDistance < data.attackDistance && IsPlayerInFieldOfView())
         {
             agent.isStopped = true;
 
@@ -167,7 +214,7 @@ public class Monster : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
 
-            if (Time.time - lastAttackTime > attackRate)
+            if (Time.time - lastAttackTime > data.attackRate)
             {
                 lastAttackTime = Time.time;
                 Attack();
@@ -176,7 +223,7 @@ public class Monster : MonoBehaviour
         else // 아닐 때
         {
             // 그럼에도 플레이어가 공격 범위 내에 있을 때
-            if (playerDistance < detectDistance)
+            if (playerDistance < data.detectDistance)
             {
                 // 플레이어에게 가는 새로운 길을 또 만들어서 가려는 시도를 함
                 agent.isStopped = false;
@@ -212,20 +259,25 @@ public class Monster : MonoBehaviour
         float angle = Vector3.Angle(transform.position, directionToPlayer);
         // 3. 그 각도가 몬스터의 시야각보다 작으면 true, 아니면 false
         
-        return angle < fieldOfView * 0.5f;
+        return angle < data.fieldOfView * 0.5f;
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        curHealth -= damage;
+        if (curHealth <= 0)
         {
+            if(damagedCoroutine != null) StopCoroutine(damagedCoroutine);
             // 죽어야됨
             Die();
         }
+        else
+        {
+            damagedCoroutine = StartCoroutine(DamageFlash());
+        }
 
         // 데미지 효과 
-        StartCoroutine(DamageFlash());
+        
     }
 
     void Die()
@@ -237,15 +289,12 @@ public class Monster : MonoBehaviour
             Instantiate(dropOnDeath[i].dropPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
         }
         */
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        onDeath?.Invoke(groupKey);
     }
 
     public virtual void Attack()
-    {
-        // TODO : 공격 애니메이션 연출 + 데미지 처리 각각의 몬스터에서 필요
-        
-        // CharacterManager.Instance.Player.controller.GetComponent<IDamagable>().TakeDamage(damage);
-    }
+    {  }
 
     
     IEnumerator DamageFlash()

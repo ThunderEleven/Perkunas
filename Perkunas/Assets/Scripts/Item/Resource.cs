@@ -109,6 +109,8 @@ public class Resource : MonoBehaviour, IInteractable
 
     public string GetInteractPrompt()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        string str = $"{dropItemData.displayName}\n{dropItemData.description}";
+        return str;
     }
 }

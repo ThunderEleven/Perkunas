@@ -9,7 +9,7 @@ public enum ResourceType
     Ore
 }
 
-public class Resource : MonoBehaviour
+public class Resource : MonoBehaviour, IInteractable
 {
     [Header("Resource Info")]
     public ResourceType type;            // 자원 종류
@@ -105,5 +105,10 @@ public class Resource : MonoBehaviour
         _currentCapacity = capacity;
         EnableResource(true);  // 리소스 스폰시 활성화
         Debug.Log($"[Resource] {gameObject.name} 리스폰");
+    }
+
+    public string GetInteractPrompt()
+    {
+        throw new System.NotImplementedException();
     }
 }

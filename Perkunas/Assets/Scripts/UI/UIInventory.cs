@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class UIInventory : UIBase
 {
@@ -192,35 +193,39 @@ public class UIInventory : UIBase
         selectedItemStatName.text = string.Empty;
         selectedItemStatValue.text = string.Empty;
 
-        // for(int i = 0; i< selectedItem.item.consumables.Length; i++)
-        // {
-        //     selectedItemStatName.text += selectedItem.item.consumables[i].type.ToString() + "\n";
-        //     selectedItemStatValue.text += selectedItem.item.consumables[i].value.ToString() + "\n";
-        // }
-        //
-        // useButton.SetActive(selectedItem.item.itemType == ItemType.Consumable);
-        // equipButton.SetActive(selectedItem.item.itemType == ItemType.Equipable && !slots[index].equipped);
-        // unEquipButton.SetActive(selectedItem.item.itemType == ItemType.Equipable && slots[index].equipped);
+        for(int i = 0; i< selectedItem.item.consumables.Length; i++)
+        {
+            selectedItemStatName.text += selectedItem.item.consumables[i].type.ToString() + "\n";
+            selectedItemStatValue.text += selectedItem.item.consumables[i].value.ToString() + "\n";
+        }
+        
+        useButton.SetActive(selectedItem.item.itemType == ItemType.Consumable);
+        equipButton.SetActive(selectedItem.item.itemType == ItemType.Equipable && !slots[index].equipped);
+        unEquipButton.SetActive(selectedItem.item.itemType == ItemType.Equipable && slots[index].equipped);
         dropButton.SetActive(true);
     }
 
-    // public void OnUseButton()
-    // {
-    //     if(selectedItem.item.itemType == ItemType.Consumable)
-    //     {
-    //         for(int i = 0; i < selectedItem.item.consumables.Length; i++)
-    //         {
-    //             switch (selectedItem.item.consumables[i].type)
-    //             {
-    //                 case ConsumableType.Health:
-    //                     condition.Heal(selectedItem.item.consumables[i].value); break;
-    //                 case ConsumableType.Hunger:
-    //                     condition.Eat(selectedItem.item.consumables[i].value);break;
-    //             }
-    //         }
-    //         RemoveSelctedItem();
-    //     }
-    // }
+    public void OnUseButton()
+    {
+         if(selectedItem.item.itemType == ItemType.Consumable)
+         {
+             for(int i = 0; i < selectedItem.item.consumables.Length; i++)
+             {
+                 switch (selectedItem.item.consumables[i].type)
+                 {
+                     case ConsumableType.Health:
+                         condition.AddHp(selectedItem.item.consumables[i].value); break;
+                     case ConsumableType.Hunger:
+                        condition.AddHunger(selectedItem.item.consumables[i].value);break;
+                     case ConsumableType.Stamina:
+                         condition.AddStamina(selectedItem.item.consumables[i].value); break;
+                     case ConsumableType.Thirst:
+                         condition.AddThirst(selectedItem.item.consumables[i].value); break;
+                }
+             }
+             RemoveSelctedItem();
+         }
+     }
 
     public void OnDropButton()
     {

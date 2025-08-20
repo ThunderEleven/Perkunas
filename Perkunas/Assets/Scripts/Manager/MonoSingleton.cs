@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine;
-
 public abstract class MonoSingleton<T> : MonoBehaviour where T : Component
 {
     protected static T _instance;

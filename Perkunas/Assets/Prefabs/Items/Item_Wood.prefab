@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8242612120703700535}
   - component: {fileID: 1060818475646503071}
   - component: {fileID: 1384936997765370554}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item_Wood
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 6848315814581673898}
   - component: {fileID: 2623756997493160845}
   - component: {fileID: 816335071506383715}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trunk_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

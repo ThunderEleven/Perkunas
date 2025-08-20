@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 578175605335568023}
   - component: {fileID: 7238183801669423087}
   - component: {fileID: 6196283216607519999}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item_Stone
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 5527476228233487341}
   - component: {fileID: 3746075232222025266}
   - component: {fileID: 2196688922322007622}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rock_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}

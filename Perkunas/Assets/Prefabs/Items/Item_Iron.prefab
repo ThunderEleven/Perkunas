@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3131157501989555464}
   - component: {fileID: 9051665998043550999}
   - component: {fileID: 9041237660642452565}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item_Iron
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 6555099803645491980}
   - component: {fileID: 2595170936337358005}
   - component: {fileID: 7389206264716468724}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rock9 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

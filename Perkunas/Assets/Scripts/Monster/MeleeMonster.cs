@@ -12,6 +12,7 @@ public class MeleeMonster : Monster
             animator.speed = 1f;
             Debug.Log("근거리 공격");
             animator.SetTrigger("Attack");
+            CharacterManager.Instance.Player.condition.TakePhysicalDamage(data.damage);
         }
     }
 }

@@ -1,17 +1,17 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class NpcTalkManager : MonoSingleton<NpcTalkManager>
+public class UITalking : UIBase
 {
     [SerializeField] public GameObject TalkingUI;
     [SerializeField] private TextMeshProUGUI npcNameText;
     [SerializeField] private TextMeshProUGUI npcDialogueText;
     private List<DialogueEntry> curDialogue = new List<DialogueEntry>();
     private int dialogueNum = 0;
+    private Coroutine talkCoroutine;
+    private bool isTyping = false;
 
     [SerializeField] private float delay = 0.125f;
 
@@ -21,7 +21,19 @@ public class NpcTalkManager : MonoSingleton<NpcTalkManager>
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                NextDialogueTalkingUI();
+                if (isTyping)
+                {
+                    SkipTyping();
+                }
+                else
+                {
+                    NextDialogueTalkingUI();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                RemoveTalkingUI();
             }
         }
     }
@@ -38,11 +50,12 @@ public class NpcTalkManager : MonoSingleton<NpcTalkManager>
         
         npcNameText.text = curDialogue[dialogueNum].npcName;
         // npcDialogueText.text = curDialogue[dialogueNum].text;
-        StartCoroutine(DelayText());
+        talkCoroutine = StartCoroutine(DelayText());
     }
 
     private IEnumerator DelayText()
     {
+        isTyping = true;
         int count = 0;
         npcDialogueText.text = "";
         
@@ -55,6 +68,15 @@ public class NpcTalkManager : MonoSingleton<NpcTalkManager>
             }
             yield return new WaitForSeconds(delay);
         }
+
+        isTyping = false;
+    }
+
+    private void SkipTyping()
+    {
+        StopCoroutine(talkCoroutine);
+        npcDialogueText.text = curDialogue[dialogueNum].dialogText;
+        isTyping = false;
     }
 
     // npc와 상호작용이 종료되면 호출 -> 대화UI의 정보들을 초기화
@@ -63,6 +85,10 @@ public class NpcTalkManager : MonoSingleton<NpcTalkManager>
         npcNameText.text = "";
         npcDialogueText.text = "";
         dialogueNum = 0;
+        
+        if (talkCoroutine != null)
+            StopCoroutine(talkCoroutine);
+        
         curDialogue.Clear();
         TalkingUI.SetActive(false);
     }
@@ -74,7 +100,12 @@ public class NpcTalkManager : MonoSingleton<NpcTalkManager>
 
         if (dialogueNum < curDialogue.Count)
         {
-            StartCoroutine(DelayText());
+            npcNameText.text = curDialogue[dialogueNum].npcName;
+
+            if (talkCoroutine != null)
+                StopCoroutine(talkCoroutine);
+
+            talkCoroutine = StartCoroutine(DelayText());
         }
         else
         {

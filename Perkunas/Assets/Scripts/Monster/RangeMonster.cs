@@ -17,6 +17,8 @@ public class RangeMonster : Monster
             GameObject projectile = Instantiate(data.projectilePrefab, projectileSpawn.position, Quaternion.LookRotation(playerDirection));
             projectile.transform.Rotate(data.projectileRotation);
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
+            MonsterProjectile monsterProjectile = projectile.GetComponent<MonsterProjectile>();
+            monsterProjectile.Init(data.damage);
             if(rb != null) rb.AddForce(playerDirection * data.projectileSpeed, ForceMode.Impulse);
         }
     }

@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private new Rigidbody rigidbody;
 
     public bool canLook = true;
+    private bool isPaused = false;
 
     public Action inventory;
 
@@ -95,6 +96,32 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (!isPaused)
+            {
+                UIManager.Instance.OpenUI<UIPause>();
+                isPaused = true;
+                ToggleCursor();
+            }
+            else
+            {
+                UIManager.Instance.CloseUI<UIPause>();
+                isPaused = false;
+                ToggleCursor();
+            }
+        }
+    }
+    
+    public void changeIsPaused()
+    {
+        UIManager.Instance.CloseUI<UIPause>();
+        isPaused = false;
+        ToggleCursor();
     }
 
     bool isGrounded()

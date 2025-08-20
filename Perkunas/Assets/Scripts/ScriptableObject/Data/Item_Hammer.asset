@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: "\uB9DD\uCE58"
   description: 
   itemType: 3
-  icon: {fileID: 0}
+  icon: {fileID: -1763116545, guid: 0bdecd877cee3764f8992bc7bc105d64, type: 3}
   dropPrefab: {fileID: 3966079894875639504, guid: 8f5c797561e298642930b1e459cf364a, type: 3}
   canStack: 0
   maxStackAmount: 0

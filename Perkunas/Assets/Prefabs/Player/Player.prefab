@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1821838138577725805}
   - component: {fileID: 8947428533896468264}
   - component: {fileID: 4774982600427636740}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -107,7 +107,8 @@ GameObject:
   - component: {fileID: 5322976225118821058}
   - component: {fileID: 3976193111353358288}
   - component: {fileID: 4478943265515994737}
-  m_Layer: 6
+  - component: {fileID: 3220891454881104551}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,9 +151,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.85
-  m_Height: 5
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5737416678942535530
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,7 +163,7 @@ Rigidbody:
   m_GameObject: {fileID: 6117802733548725677}
   serializedVersion: 4
   m_Mass: 20
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -254,7 +255,19 @@ MonoBehaviour:
     m_ActionId: a52265ef-a55d-4b41-ae22-98f795fe20c5
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3976193111353358288}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnInventoryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a6ff607a-4062-4ec4-ad72-ad0e2cd3aabd
     m_ActionName: Player/Inventory[/Keyboard/tab]
   - m_PersistentCalls:
@@ -295,6 +308,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  condition: {fileID: 0}
+  itemData: {fileID: 0}
+  dropPosition: {fileID: 0}
 --- !u!114 &3976193111353358288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,8 +323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4f017624758784ea2339eb9cc66a5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpPower: 80
+  moveSpeed: 20
+  jumpPower: 100
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 119
@@ -316,6 +332,7 @@ MonoBehaviour:
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.1
+  canLook: 1
 --- !u!114 &4478943265515994737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,9 +349,42 @@ MonoBehaviour:
   maxCheckDistance: 3
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   curInteractGameObject: {fileID: 0}
   prompText: {fileID: 0}
+--- !u!114 &3220891454881104551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117802733548725677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebed3b34743058a458fa28a00da77bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curHp: 0
+  maxHp: 100
+  startHp: 50
+  passiveHp: 5
+  hpUIBar: {fileID: 0}
+  noHungerHealthDecay: 10
+  curStamina: 0
+  maxStamina: 100
+  startStamina: 90
+  passiveStamina: 5
+  staminaUIBar: {fileID: 0}
+  curHunger: 0
+  maxHunger: 100
+  startHunger: 100
+  passiveHunger: 5
+  hungerUIBar: {fileID: 0}
+  curThirst: 0
+  maxThirst: 100
+  startThirst: 100
+  passiveThirst: 5
+  thirstUIBar: {fileID: 0}
 --- !u!1 &6442911693250202473
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +394,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5673495782077734058}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: CameraContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

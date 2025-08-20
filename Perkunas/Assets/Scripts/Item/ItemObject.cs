@@ -53,6 +53,8 @@ public class ItemObject : MonoBehaviour, IInteractable
     public void OnInteract()
     {
         // 인벤토리에 추가
+        CharacterManager.Instance.Player.itemData = data;
+        CharacterManager.Instance.Player.addItem?.Invoke();
         ReturnToPool();     // 풀로 넣기
     }
 

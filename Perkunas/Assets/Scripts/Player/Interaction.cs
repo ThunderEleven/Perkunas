@@ -26,7 +26,7 @@ public class Interaction : MonoBehaviour
     }
     void Update()
     {
-        if (Time.time - lastCheckTime < checkRate)
+        if (Time.time - lastCheckTime > checkRate)
         {
             lastCheckTime = Time.time;
             Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -61,7 +61,7 @@ public class Interaction : MonoBehaviour
             curinteractable.OnInteract();
             curinteractable = null;
             curInteractGameObject = null;
-            prompText.gameObject.SetActive(false);
+            // prompText.gameObject.SetActive(false);
         }
     }
 }

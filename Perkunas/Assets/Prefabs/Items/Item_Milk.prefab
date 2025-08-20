@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 995690963212800868}
   - component: {fileID: 7493485918834928664}
   - component: {fileID: 4106592419486075633}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item_Milk
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

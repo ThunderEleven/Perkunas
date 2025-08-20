@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6864679287447981935}
   - component: {fileID: 981003934213907196}
   - component: {fileID: -3491765923657716029}
+  - component: {fileID: 3036904273791144810}
   m_Layer: 6
   m_Name: Resource_Rock
   m_TagString: Resource
@@ -173,3 +174,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 5785506702161948928, guid: b2824ee9dcdd7d043905de58567afb31, type: 3}
   initialSize: 10
+--- !u!208 &3036904273791144810
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3474841221218759277}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

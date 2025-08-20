@@ -115,7 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edc0483628eb024ab50a0a4e921cfec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 5f72f4db8f236f54d9f5ac96fb4e2dfa, type: 2}
+  data: {fileID: 11400000, guid: 85eaa3df90c0f98478dba0e72a973933, type: 2}
+  manager: {fileID: 0}
+  groupKey: {x: 0, y: 0, z: 0}
   projectileSpawn: {fileID: 6179421947890192027}
 --- !u!1 &6345678866594583615
 GameObject:

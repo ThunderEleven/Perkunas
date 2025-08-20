@@ -5,14 +5,14 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Ãæµ¹ÇÔ" + collision.gameObject.name);
-        // ºÎµúÈù ¿ÀºêÁ§Æ®ÀÇ ÅÂ±×°¡ "Monster"ÀÎÁö È®ÀÎ
+        Debug.Log("ì¶©ëŒí•¨" + collision.gameObject.name);
+        // ë¶€ë”ªíŒ ì˜¤ë¸Œì íŠ¸ì˜ íƒœê·¸ê°€ "Monster"ì¸ì§€ í™•ì¸
         if (collision.gameObject.CompareTag("Monster"))
         {
             if (collision.gameObject.TryGetComponent(out Monster monster))
             {
                 monster.TakeDamage(10);
-                Debug.Log("µ¥¹ÌÁö ÀÔÀ½");
+                Debug.Log("ë°ë¯¸ì§€ ì…ìŒ");
             }
         }
     }

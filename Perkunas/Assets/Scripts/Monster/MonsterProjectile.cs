@@ -6,7 +6,7 @@ using UnityEngine;
 public class MonsterProjectile : MonoBehaviour
 {
     private void OnCollisionEnter(Collision other)
-    {
+    { 
         if (other.collider.CompareTag("Player"))
         {
             Debug.Log("플레이어가 맞았다!");

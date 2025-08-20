@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 700595073680893005}
   - component: {fileID: 8066785434513027728}
   - component: {fileID: -5782649848359480359}
+  - component: {fileID: 5096196261870352393}
   m_Layer: 6
   m_Name: Resource_IronOre
   m_TagString: Resource
@@ -196,3 +197,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6342741255022882528, guid: 0ef09f2b88f91084a9a5d365d8fe2330, type: 3}
   initialSize: 10
+--- !u!208 &5096196261870352393
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4126698249830201196}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

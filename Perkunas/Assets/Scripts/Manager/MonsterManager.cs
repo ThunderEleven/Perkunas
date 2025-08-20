@@ -26,8 +26,10 @@ public class MonsterManager : MonoSingleton<MonsterManager>
 
     private void Awake()
     {
+        Debug.Log("Monster Manager Awake");
         spawnPositions = GenerateRandomPositions(cornerA, cornerB, groupCount, minDistance);
-
+        if(spawnPositions == null || spawnPositions.Count == 0) 
+            Debug.LogError("Spawn Position is null");
         // 포지션 하나마다 몬스터 그룹 설정
         foreach (var pos in spawnPositions)
         {
@@ -92,7 +94,7 @@ public class MonsterManager : MonoSingleton<MonsterManager>
                 Random.Range(minZ, maxZ)
             );
 
-            if (NavMesh.SamplePosition(randomPos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPos, out NavMeshHit hit, 5f, NavMesh.AllAreas))
             {
                 bool valid = true;
                 foreach (var p in positions)
@@ -110,8 +112,16 @@ public class MonsterManager : MonoSingleton<MonsterManager>
                     placed++;
                 }
             }
+            else
+            {
+                Debug.LogError("Cannot Make Spawn Position");
+            }
         }
 
+        if (positions == null || positions.Count == 0)
+        {
+            Debug.LogError("Cannot Make Spawn Positions");
+        }
         return positions;
     }
 

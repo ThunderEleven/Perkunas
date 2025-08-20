@@ -15,6 +15,7 @@ public class UIManager : MonoSingleton<UIManager>
         CreateUI<UIMain>();
         CreateUI<UIQuickSlot>();
         CreateUI<UIInventory>();
+        CreateUI<UITalking>();
     }
 
     // UI 관리

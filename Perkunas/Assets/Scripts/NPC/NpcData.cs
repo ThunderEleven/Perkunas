@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NpcData : MonoBehaviour
+public class NpcData : MonoBehaviour, IInteractable
 {
     public string npcName;
     [SerializeField] private List<DialogueEntry> dialogue;
@@ -22,20 +22,14 @@ public class NpcData : MonoBehaviour
         }
     }
     
-    // 대화 내용 출력 테스트용 콜라이더 처리 메서드
-    private void OnCollisionEnter(Collision other)
+    public string GetInteractPrompt()
     {
-        if (other.transform.CompareTag("Player"))
-        {
-            NpcTalkManager.Instance.InitTalkingUI(dialogue);
-        }
+        string str = "대화 하기";
+        return str;
     }
 
-    private void OnCollisionExit(Collision other)
+    public void OnInteract()
     {
-        if (other.transform.CompareTag("Player"))
-        {
-            NpcTalkManager.Instance.RemoveTalkingUI();
-        }
+        UIManager.Instance.GetUI<UITalking>().InitTalkingUI(dialogue);
     }
 }

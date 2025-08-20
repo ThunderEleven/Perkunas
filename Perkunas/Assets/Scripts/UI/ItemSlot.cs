@@ -8,6 +8,7 @@ public class ItemSlot : MonoBehaviour
     public ItemData item;   // 아이템 데이터
 
     public UIInventory inventory;
+    public UIQuickSlot quickSlot;
     public Button button;
     public Image icon;
     public TextMeshProUGUI quatityText;  // 수량표시 Text

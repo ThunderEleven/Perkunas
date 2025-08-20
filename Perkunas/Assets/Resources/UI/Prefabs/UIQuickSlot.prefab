@@ -115,6 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a386978313046d1409f51460a7d3c222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quickSlots: []
+  quickSlotWindow: {fileID: 268438778217371881}
+  slotPanel: {fileID: 7047059545341435710}
 --- !u!1 &6097420067157156117
 GameObject:
   m_ObjectHideFlags: 0

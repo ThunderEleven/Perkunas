@@ -128,7 +128,7 @@ public class UIInventory : UIBase
 		// UI 정보 새로고침
     public void UpdateUI()
     {
-        for(int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
 		        // 슬롯에 아이템 정보가 있다면
             if (slots[i].item != null)
@@ -140,6 +140,8 @@ public class UIInventory : UIBase
                 slots[i].Clear();
             }
         }
+        
+        UIManager.Instance.GetUI<UIQuickSlot>().UpdateQuickSlotsUI();
     }
 
 		// 여러개 가질 수 있는 아이템의 정보 찾아서 return
@@ -221,29 +223,29 @@ public class UIInventory : UIBase
     //     }
     // }
 
-    // public void OnDropButton()
-    // {
-    //     ThrowItem(selectedItem.item);
-    //     RemoveSelctedItem();
-    // }
+    public void OnDropButton()
+    {
+        ThrowItem(selectedItem.item);
+        RemoveSelctedItem();
+    }
 
-    // void RemoveSelctedItem()
-    // {
-    //     selectedItem.quantity--;
-    //
-    //     if(selectedItem.quantity <= 0)
-    //     {
-    //         if (slots[selectedItemIndex].equipped)
-    //         {
-    //             UnEquip(selectedItemIndex);
-    //         }
-    //
-    //         selectedItem.item = null;
-    //         ClearSelectedItemWindow();
-    //     }
-    //
-    //     UpdateUI();
-    // }
+    void RemoveSelctedItem()
+    {
+        selectedItem.quantity--;
+    
+        if(selectedItem.quantity <= 0)
+        {
+            // if (slots[selectedItemIndex].equipped)
+            // {
+            //     UnEquip(selectedItemIndex);
+            // }
+    
+            selectedItem.item = null;
+            ClearSelectedItemWindow();
+        }
+    
+        UpdateUI();
+    }
 
     public bool HasItem(ItemData item, int quantity)
     {

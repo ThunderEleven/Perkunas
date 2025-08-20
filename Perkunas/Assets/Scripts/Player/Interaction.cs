@@ -23,6 +23,7 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         camera = Camera.main;
+        prompText = UIManager.Instance.GetUI<UIMain>().promptText;
     }
     void Update()
     {

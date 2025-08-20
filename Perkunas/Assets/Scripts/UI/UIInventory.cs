@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class UIInventory : MonoBehaviour
+public class UIInventory : UIBase
 {
     public ItemSlot[] slots;
 

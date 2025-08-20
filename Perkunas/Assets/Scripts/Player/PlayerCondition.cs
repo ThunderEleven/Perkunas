@@ -48,6 +48,11 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         curStamina = startStamina;
         curHunger = startHunger;
         curThirst = startThirst;
+
+        hpUIBar = UIManager.Instance.GetUI<UIMain>().hpBar;
+        staminaUIBar = UIManager.Instance.GetUI<UIMain>().staminaBar;
+        hungerUIBar = UIManager.Instance.GetUI<UIMain>().hungerBar;
+        thirstUIBar = UIManager.Instance.GetUI<UIMain>().thirstBar;
     }
 
     private void Update()

@@ -36,14 +36,14 @@ public class Interaction : MonoBehaviour
             {
                 curInteractGameObject = hit.collider.gameObject;
                 curinteractable = hit.collider.GetComponent<IInteractable>();
-                //SetPormpText();
+                SetPormpText();
                 Debug.Log($"감지된 오브젝트: {hit.collider.name}");
             }
             else
             {
                 curInteractGameObject = null;
                 curinteractable = null;
-                //prompText.gameObject.SetActive(false);
+                prompText.gameObject.SetActive(false);
             }
         }
     }
@@ -61,7 +61,7 @@ public class Interaction : MonoBehaviour
             curinteractable.OnInteract();
             curinteractable = null;
             curInteractGameObject = null;
-            // prompText.gameObject.SetActive(false);
+            prompText.gameObject.SetActive(false);
         }
     }
 }

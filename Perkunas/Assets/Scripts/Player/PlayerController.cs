@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
     public Action inventory;
 
+    public int attackDamage = 5;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -127,5 +129,14 @@ public class PlayerController : MonoBehaviour
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
+    }
+    public void AttackWithRaycastHit(RaycastHit hit)
+    {
+        Monster enemy = hit.collider.GetComponent<Monster>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(attackDamage);
+            Debug.Log($"Hit {hit.collider.name} for {attackDamage} damage!");
+        }
     }
 }

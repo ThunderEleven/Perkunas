@@ -119,7 +119,6 @@ public class UIInventory : MonoBehaviour
             CharacterManager.Instance.Player.itemData = null;
             return;
         }
-
 				// 빈 슬롯 마저 없을 때
         ThrowItem(data);
         CharacterManager.Instance.Player.itemData = null;

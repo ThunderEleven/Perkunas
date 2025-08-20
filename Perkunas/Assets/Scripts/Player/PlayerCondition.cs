@@ -84,6 +84,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
 
     public void TakePhysicalDamage(int damageAmount)
     {
+        Debug.Log("플레이어가 데미지 입음");
         SubtractHp(damageAmount);
         onTakeDamage?.Invoke();
     }

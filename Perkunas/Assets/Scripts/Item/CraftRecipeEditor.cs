@@ -7,6 +7,12 @@ public class RequireItemInfo
 {
     public ItemData reqItem;
     public int num;
+
+    public RequireItemInfo(ItemData itemData, int number)
+    {
+        this.reqItem = itemData;
+        this.num = number;
+    }
 }
 
 [System.Serializable]

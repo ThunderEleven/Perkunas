@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     public bool canLook = true;
     private bool isPaused = false;
+    private bool isCrafting = false;
 
     public Action inventory;
 
@@ -44,8 +45,18 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            UIManager.Instance.GetUI<UICrafting>().OpenUI();
-            ToggleCursor();
+            if (!isCrafting)
+            {
+                UIManager.Instance.GetUI<UICrafting>().OpenUI();
+                ToggleCursor();
+                isCrafting = !isCrafting;
+            }
+            else
+            {
+                UIManager.Instance.CloseUI<UICrafting>();
+                ToggleCursor();
+                isCrafting = !isCrafting;
+            }
         }
     }
 

@@ -15,8 +15,6 @@ MonoBehaviour:
   requireItems:
   - reqItem: {fileID: 11400000, guid: 1184fa16e0fc09940a431794c6cf6ea7, type: 2}
     num: 2
-  - reqItem: {fileID: 11400000, guid: 26ca027ae88415446ada0be8ca824c76, type: 2}
-    num: 2
   resultItem:
     resItem: {fileID: 11400000, guid: 1923781e900399949b561b7453e67d10, type: 2}
     num: 1

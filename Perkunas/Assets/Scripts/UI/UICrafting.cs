@@ -21,6 +21,8 @@ public class UICrafting : UIBase
     [Header("필요한 프리팹들")]
     public GameObject requireItemSlotPrefab;
     public GameObject slotPrefab;
+
+    private CraftRecipeEditor curResultItemData;
     
     private void Start()
     {
@@ -47,6 +49,7 @@ public class UICrafting : UIBase
     // 제작 UI의 슬롯을 누르면 제작 UI의 정보가 바뀌는 메서드
     public void ChangeSelectedRecipeInfo(CraftingItemSlot slotInfo)
     {
+        curResultItemData = slotInfo.craftItemData;
         selectedRecipeIcon.sprite = slotInfo.icon.sprite;
         selectedRecipeName.text = slotInfo.craftItemData.resultItem.resItem.displayName;
 
@@ -67,9 +70,36 @@ public class UICrafting : UIBase
             prefab.transform.parent = requireItemPanel.transform;
         }
     }
+
+    public void OnClickEnterButton()
+    {
+        Debug.Log("제작 버튼 클릭 메서드");
+        if (curResultItemData != null)
+        {
+            // 재료 아이템이 충분한지 비교
+            if (UIManager.Instance.GetUI<UIInventory>().CheckRequireItem(curResultItemData))
+            {
+                // 재료 아이템이 인벤토리에 충분하다면 재료 아이템을 소모하고
+                UIManager.Instance.GetUI<UIInventory>().ConsumeItems(curResultItemData);
+                
+                // 아이템을 제작해서 넣어줌
+                UIManager.Instance.GetUI<UIInventory>().AddItemFromCrafting(curResultItemData.resultItem.resItem);
+            }
+        }
+    }
+
+    public void OnClickEscButton()
+    {
+        Debug.Log("취소 버튼 클릭 메서드");
+    }
     
     public override void OpenUI()
     {
         craftingUI.SetActive(true);
+    }
+
+    public override void CloseUI()
+    {
+        craftingUI.SetActive(false);
     }
 }

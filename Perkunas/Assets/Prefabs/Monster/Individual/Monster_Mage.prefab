@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 924204ae3a205b9418e5fbf3f19f9551, type: 2}
+  dropOnDeath:
+  - {fileID: 11400000, guid: a6be4aad3d9a44b40815e2d4e1e01db6, type: 2}
   manager: {fileID: 0}
   groupKey: {x: 0, y: 0, z: 0}
   projectileSpawn: {fileID: 4359529889192673205}

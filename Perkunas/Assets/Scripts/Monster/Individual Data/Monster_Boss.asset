@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monster_Boss
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 4780859905220947627, guid: 7a2468e5b97543f49a34ab199a351b95, type: 3}
-  maxHealth: 1
+  maxHealth: 30
   walkSpeed: 5
   runSpeed: 8
   detectDistance: 30

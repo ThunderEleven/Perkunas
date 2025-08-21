@@ -93,6 +93,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 2e733fedcff6e0340ac324996efb2aed, type: 2}
+  dropOnDeath:
+  - {fileID: 11400000, guid: 9dc6c4dc570c7cf45a82efd8a4525c6e, type: 2}
+  - {fileID: 11400000, guid: a6be4aad3d9a44b40815e2d4e1e01db6, type: 2}
+  - {fileID: 11400000, guid: 36f3bf78b632ec845832c61ae5ec9957, type: 2}
   manager: {fileID: 0}
   groupKey: {x: 0, y: 0, z: 0}
 --- !u!136 &5038723708028490292

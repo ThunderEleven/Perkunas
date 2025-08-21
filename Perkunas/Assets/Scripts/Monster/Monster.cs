@@ -18,6 +18,7 @@ public class Monster : MonoBehaviour, IDamagable
 {
     // Data Setting
     public MonsterData data;
+    public ItemData[] dropOnDeath;
     [HideInInspector] public MonsterManager manager;
     [HideInInspector] public Vector3 groupKey;
     [HideInInspector] public Action<Vector3> onDeath; 
@@ -293,13 +294,12 @@ public class Monster : MonoBehaviour, IDamagable
 
     void Die()
     {
-        // 몬스터 죽었을 때 아이템 떨구는 코드
-        /*
+        
         for (int i = 0; i < dropOnDeath.Length; i++)
         {
             Instantiate(dropOnDeath[i].dropPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
         }
-        */
+        
         gameObject.SetActive(false);
         onDeath?.Invoke(groupKey);
     }

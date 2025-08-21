@@ -49,6 +49,7 @@ MonoBehaviour:
   attackRate: 0.8
   attacking: 0
   attackDistance: 1
+  useStamina: 20
   doesGatherResources: 0
   doesDealDamage: 1
   damage: 10

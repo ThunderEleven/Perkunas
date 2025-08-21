@@ -38,10 +38,22 @@ public class UITalking : UIBase
         }
     }
 
+    public override void OpenUI()
+    {
+        TalkingUI.SetActive(true);
+        UIManager.Instance.uiStack.Push(this);
+    }
+
+    public override void CloseUI()
+    {
+        TalkingUI.SetActive(false);
+        UIManager.Instance.uiStack.Pop();
+    }
+
     // npc와 상호작용하면 호출될 메서드 -> 대화UI에게 정보들을 넘겨준다
     public void InitTalkingUI(List<DialogueEntry> dialogue)
     {
-        TalkingUI.SetActive(true);
+        OpenUI();
         
         foreach (var data in dialogue)
         {
@@ -49,7 +61,12 @@ public class UITalking : UIBase
         }
         
         npcNameText.text = curDialogue[dialogueNum].npcName;
-        // npcDialogueText.text = curDialogue[dialogueNum].text;
+        
+        if (talkCoroutine != null)
+        {
+            StopCoroutine(talkCoroutine);
+        }
+        
         talkCoroutine = StartCoroutine(DelayText());
     }
 
@@ -90,7 +107,8 @@ public class UITalking : UIBase
             StopCoroutine(talkCoroutine);
         
         curDialogue.Clear();
-        TalkingUI.SetActive(false);
+        // TalkingUI.SetActive(false);
+        CloseUI();
     }
 
     // npc의 대화를 다음 페이지로 넘기는 메서드

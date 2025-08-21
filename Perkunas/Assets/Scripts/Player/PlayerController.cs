@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public bool canLook = true;
     private bool isPaused = false;
+    public bool isCrafting = false;
+    private bool isInInventory = false;
 
     public Action inventory;
 
@@ -72,6 +74,23 @@ public class PlayerController : MonoBehaviour
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
     }
 
+    public void OnCrafting(InputAction.CallbackContext context)
+    {
+        if (!isCrafting)
+        {
+            if (UIManager.Instance.uiStack.Count < 4)
+            {
+                UIManager.Instance.GetUI<UICrafting>().OpenUI();
+                ToggleCursor();
+                isCrafting = true;
+            }
+        }
+        else
+        {
+            UIManager.Instance.CloseUI<UICrafting>();
+            isCrafting = false;
+        }
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -104,15 +123,32 @@ public class PlayerController : MonoBehaviour
         {
             if (!isPaused)
             {
-                UIManager.Instance.OpenUI<UIPause>();
-                isPaused = true;
-                ToggleCursor();
+                if (UIManager.Instance.uiStack.Count < 4)
+                {
+                    UIManager.Instance.OpenUI<UIPause>();
+                    isPaused = true;
+                    ToggleCursor();
+                }
             }
             else
             {
                 UIManager.Instance.CloseUI<UIPause>();
                 isPaused = false;
                 ToggleCursor();
+            }
+
+            if (isCrafting)
+            {
+                UIManager.Instance.CloseUI<UICrafting>();
+                ToggleCursor();
+                isCrafting = false;
+            }
+
+            if (isInInventory)
+            {
+                inventory?.Invoke();
+                ToggleCursor();
+                isInInventory = false;
             }
         }
     }
@@ -149,24 +185,36 @@ public class PlayerController : MonoBehaviour
         {
             inventory?.Invoke();
             ToggleCursor();
+            isInInventory = !isInInventory;
         }
     }
-    void ToggleCursor()
+    public void ToggleCursor()
     {
-        bool toggle = Cursor.lockState == CursorLockMode.Locked;
-        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
-        canLook = !toggle;
+        if (UIManager.Instance.uiStack.Count >= 4)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            canLook = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            canLook = true;
+        }
+        
+        // bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        // Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
+        // canLook = !toggle;
     }
 
-    // [SerializeField]GameObject buildingPrefab; // Ãß°¡
+    // [SerializeField]GameObject buildingPrefab; // ï¿½ß°ï¿½
 
-    // public void OnBuild(InputAction.CallbackContext context) // Ãß°¡
+    // public void OnBuild(InputAction.CallbackContext context) // ï¿½ß°ï¿½
     // {
     //     if (context.phase == InputActionPhase.Started)
     //     {
     //         CharacterManager.Instance.Player.buildingManager.PlaceObject(transform.position + Vector3.forward, buildingPrefab);
     //     }
 
-    //      CharacterManager.Instance.Player.buildingManager.EndVisualisingObject(); ¾îµð¼±°¡ Áö¿ö¾ßÇÔ
+    //      CharacterManager.Instance.Player.buildingManager.EndVisualisingObject(); ï¿½ï¿½ð¼±°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     // }
 }

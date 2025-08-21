@@ -17,12 +17,14 @@ public class UIPause : UIBase
     public override void OpenUI()
     {
         pauseUI.SetActive(true);
+        UIManager.Instance.uiStack.Push(this);
         Time.timeScale = 0f;
     }
 
     public override void CloseUI()
     {
         pauseUI.SetActive(false);
+        UIManager.Instance.uiStack.Pop();
         Time.timeScale = 1f;
     }
 

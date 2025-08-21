@@ -14,7 +14,7 @@ public enum AIState
 }
 
 [Serializable]
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IDamagable
 {
     // Data Setting
     public MonsterData data;
@@ -287,25 +287,6 @@ public class Monster : MonoBehaviour
         return angle < data.fieldOfView * 0.5f;
     }
 
-    public void TakeDamage(int damage)
-    {
-        Debug.Log("몬스터가 데미지를 입음");
-        curHealth -= damage;
-        if (curHealth <= 0)
-        {
-            if(damagedCoroutine != null) StopCoroutine(damagedCoroutine);
-            // 죽어야됨
-            Die();
-        }
-        else
-        {
-            damagedCoroutine = StartCoroutine(DamageFlash());
-        }
-
-        // 데미지 효과 
-        
-    }
-
     void Die()
     {
         // 몬스터 죽었을 때 아이템 떨구는 코드
@@ -338,6 +319,23 @@ public class Monster : MonoBehaviour
             meshRenderers[i].material.color = Color.white;
         }
     }
-    
+
+    public void TakePhysicalDamage(int damageAmount)
+    {
+        Debug.Log("몬스터가 데미지를 입음");
+        curHealth -= damageAmount;
+        if (curHealth <= 0)
+        {
+            if(damagedCoroutine != null) StopCoroutine(damagedCoroutine);
+            // 죽어야됨
+            Die();
+        }
+        else
+        {
+            damagedCoroutine = StartCoroutine(DamageFlash());
+        }
+
+        // 데미지 효과 
+    }
 }
 

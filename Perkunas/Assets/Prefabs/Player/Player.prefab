@@ -192,9 +192,10 @@ GameObject:
   - component: {fileID: 4478943265515994737}
   - component: {fileID: 3220891454881104551}
   - component: {fileID: 4100993499126989742}
+  - component: {fileID: 4417684970364440606}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -412,7 +413,7 @@ MonoBehaviour:
   condition: {fileID: 0}
   equip: {fileID: 0}
   itemData: {fileID: 0}
-  dropPosition: {fileID: 0}
+  dropPosition: {fileID: 4574304909471224138}
 --- !u!114 &3976193111353358288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,6 +436,7 @@ MonoBehaviour:
   maxXLook: 85
   lookSensitivity: 0.1
   canLook: 1
+  isCrafting: 0
   attackDamage: 5
 --- !u!114 &4478943265515994737
 MonoBehaviour:
@@ -449,10 +451,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkRate: 0.05
-  maxCheckDistance: 3
+  maxCheckDistance: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 9280
   curInteractGameObject: {fileID: 0}
   prompText: {fileID: 0}
 --- !u!114 &3220891454881104551
@@ -501,7 +503,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curEquip: {fileID: 0}
+  builtObject: {fileID: 0}
   equipParent: {fileID: 6011104320799913825}
+--- !u!114 &4417684970364440606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117802733548725677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf66c767e5f288040ba0c7d6c05dc142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellWidth: 5
+  cellHeight: 5
+  visualiseGrid: 1
+  distanceFromPlayer: 5
+  gizmoSize: 0.2
+  transparentMat: {fileID: 2100000, guid: 24ae7b61422baad4c82de79fbe583eed, type: 2}
+  buildLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  onClick: 0
 --- !u!1 &6442911693250202473
 GameObject:
   m_ObjectHideFlags: 0

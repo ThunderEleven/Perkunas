@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Windows.Speech;
+using Enumerable = System.Linq.Enumerable;
 
 public class UIInventory : UIBase
 {
@@ -75,12 +79,17 @@ public class UIInventory : UIBase
     public void Toggle()
     {
         if (IsOpen())
-        {
+        { 
             inventoryWindow.SetActive(false);
+            UIManager.Instance.uiStack.Pop();
         }
         else
         {
-            inventoryWindow.SetActive(true);
+            if (UIManager.Instance.uiStack.Count < 4)
+            {
+                inventoryWindow.SetActive(true);
+                UIManager.Instance.uiStack.Push(this);
+            }
         }
     }
 
@@ -125,6 +134,134 @@ public class UIInventory : UIBase
         CharacterManager.Instance.Player.itemData = null;
     }
 
+    public void AddItemFromCrafting(ItemData resultItem)
+    {
+        if (resultItem.canStack)
+        {
+            ItemSlot slot = GetItemStack(resultItem);
+            if(slot != null)
+            {
+                slot.quantity++;
+                UpdateUI();
+                CharacterManager.Instance.Player.itemData = null;
+                return;
+            }
+        }
+        
+        ItemSlot emptySlot = GetEmptySlot();
+        if(emptySlot != null)
+        {
+            emptySlot.item = resultItem;
+            emptySlot.quantity = 1;
+            UpdateUI();
+            CharacterManager.Instance.Player.itemData = null;
+            return;
+        }
+        
+        ThrowItem(resultItem);
+        CharacterManager.Instance.Player.itemData = null;
+    }
+
+    public bool CheckRequireItem(CraftRecipeEditor recipe)
+    {
+        // 딕션너리로 재료 관리 -> 아이템 이름, 수량
+        Dictionary<string, int> curInventoryData = new Dictionary<string, int>();
+
+        foreach (var slot in slots)
+        {
+            if (slot.item != null)
+            {
+                string itemName = slot.item.displayName;
+                if (curInventoryData.ContainsKey(itemName))
+                {
+                    curInventoryData[itemName] += slot.quantity;
+                }
+                else
+                {
+                    curInventoryData.Add(itemName, slot.quantity);
+                }
+            }
+        }
+        
+        // 레시피에 필요한 재료 아이템들을 순회하며 인벤토리와 비교
+        foreach (var data in recipe.requireItems)
+        {
+            string requiredItemName = data.reqItem.displayName;
+            int requiredNum = data.num;
+
+            // 딕셔너리에 필요한 아이템이 있는지, 충분한 수량이 있는지 확인
+            if (curInventoryData.ContainsKey(requiredItemName))
+            {
+                // 인벤토리의 수량이 필요한 수량보다 적을 경우
+                if (curInventoryData[requiredItemName] < requiredNum)
+                {
+                    Debug.Log($"재료 부족: {requiredItemName}. 필요 수량: {requiredNum}, 현재 수량: {curInventoryData[requiredItemName]}");
+                    return false;
+                }
+            }
+            else
+            {
+                // 필요한 아이템이 인벤토리에 아예 없는 경우
+                Debug.Log($"재료 부족: {requiredItemName}. 인벤토리에 존재하지 않습니다.");
+                return false;
+            }
+        }
+
+        // 모든 재료가 충분하다면 true 반환
+        return true;
+    }
+
+    public void ConsumeItems(CraftRecipeEditor recipe)
+    {
+        // 딕셔너리를 통해 재료 정보를 관리
+        Dictionary<string, int> remainingRequiredItems = new Dictionary<string, int>();
+        foreach (var data in recipe.requireItems)
+        {
+            remainingRequiredItems.Add(data.reqItem.displayName, data.num);
+        }
+
+        // 인벤토리 슬롯들을 순회하며 재료를 소모
+        for (int i = 0; i < slots.Length; i++)
+        {
+            var slot = slots[i];
+            // 슬롯에 아이템이 있고, 남은 재료 목록에 해당 아이템이 있다면
+            if (slot.item != null && remainingRequiredItems.ContainsKey(slot.item.displayName))
+            {
+                string itemName = slot.item.displayName;
+                int requiredCount = remainingRequiredItems[itemName];
+
+                // 현재 슬롯의 수량이 필요한 수량보다 많거나 같을 경우
+                if (slot.quantity >= requiredCount)
+                {
+                    // 필요한 만큼만 소모
+                    slot.quantity -= requiredCount; 
+                    // 이 재료는 소모 완료
+                    remainingRequiredItems[itemName] = 0; 
+
+                    // 슬롯의 수량이 0이 되면 슬롯을 비움
+                    if (slot.quantity == 0)
+                    {
+                        slot.Clear();
+                    }
+                }
+                // 현재 슬롯의 수량이 필요한 수량보다 적을 경우
+                else
+                {
+                    // 필요한 수량에서 현재 슬롯의 수량만큼 뺀다
+                    remainingRequiredItems[itemName] -= slot.quantity;
+                    slot.Clear(); 
+                }
+            }
+
+            // 모든 재료가 소모되었는지 확인하여 루프를 조기 종료 (LinQ 활용)
+            if (remainingRequiredItems.All(key => key.Value <= 0))
+            {
+                Debug.Log("모든 재료를 성공적으로 소모했습니다.");
+                break;
+            }
+        }
+    }
+    
 		// UI 정보 새로고침
     public void UpdateUI()
     {

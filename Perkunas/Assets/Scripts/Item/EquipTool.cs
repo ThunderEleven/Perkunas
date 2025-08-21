@@ -50,6 +50,7 @@ public class EquipTool : Equip
 
     public void OnHit()
     {
+        SoundManager.Instance.AttackClip();
         if (!isRangedWeapon)
         {
             Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));

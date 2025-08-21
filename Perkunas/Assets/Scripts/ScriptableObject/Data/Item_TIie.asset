@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uBC14\uB2E5"
   description: 
-  itemType: 0
+  itemType: 3
   icon: {fileID: 0}
   dropPrefab: {fileID: 9204631716267346939, guid: 6e9a1c716463c8c4a9522e0ae671795f, type: 3}
   canStack: 1
   maxStackAmount: 100
   consumables: []
-  equipPrefab: {fileID: 0}
+  equipPrefab: {fileID: 9204631716267346939, guid: fb45991763734e94a8a468f5c5e91c23, type: 3}
   placable: 1
   snapToGridEdge: 0
   buildingPrefab: {fileID: 9204631716267346939, guid: fb45991763734e94a8a468f5c5e91c23, type: 3}
-  ignoreObjects: []
+  ignoreObjects:
+  - {fileID: 11400000, guid: 3f18f7bfbbf76054ab4d650365226cfb, type: 2}
+  - {fileID: 11400000, guid: c27942321745d35498fc6a4c14f8ac24, type: 2}

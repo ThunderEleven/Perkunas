@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uBB38"
   description: 
-  itemType: 0
+  itemType: 3
   icon: {fileID: 0}
   dropPrefab: {fileID: 403175423537019125, guid: d9d10627f44d3b54090e83e899bf505d, type: 3}
   canStack: 1
   maxStackAmount: 100
   consumables: []
-  equipPrefab: {fileID: 0}
+  equipPrefab: {fileID: 403175423537019125, guid: 33f5e37754d98614ca4ffed85c20cc5b, type: 3}
   placable: 1
   snapToGridEdge: 1
   buildingPrefab: {fileID: 403175423537019125, guid: 33f5e37754d98614ca4ffed85c20cc5b, type: 3}

@@ -7,10 +7,14 @@ public class Equipment : MonoBehaviour
 {
 
     public Equip curEquip;
+    public GameObject builtObject;
     public Transform equipParent;
 
     private PlayerController controller;
     private PlayerCondition condition;
+
+    private ItemData buildItemData;
+    public ItemData BuildItemData { get { return buildItemData; } private set { } }
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +26,15 @@ public class Equipment : MonoBehaviour
     public void EquipNew(ItemData data)
     {
         UnEquip();
-        curEquip = Instantiate(data.equipPrefab, equipParent).GetComponent<Equip>();
+        if(data.placable)
+        {
+            builtObject = Instantiate(data.equipPrefab, equipParent);
+            buildItemData = data;
+        }
+        else
+        {
+            curEquip = Instantiate(data.equipPrefab, equipParent).GetComponent<Equip>();
+        }
 
     }
 
@@ -33,6 +45,12 @@ public class Equipment : MonoBehaviour
             Destroy(curEquip.gameObject);
             curEquip = null;
         }
+        if(builtObject != null)
+        {
+            Destroy(builtObject);
+            builtObject = null;
+            buildItemData = null;
+        }
     }
 
     public void OnAttackInput(InputAction.CallbackContext context)
@@ -40,6 +58,10 @@ public class Equipment : MonoBehaviour
         if(context.phase == InputActionPhase.Performed && curEquip != null && controller.canLook)
         {
             curEquip.OnAttackInput();
+        }
+        else if (context.phase == InputActionPhase.Performed && builtObject != null && controller.canLook)
+        {
+            CharacterManager.Instance.Player.buildingManager.onClick = true;    
         }
     }
 }

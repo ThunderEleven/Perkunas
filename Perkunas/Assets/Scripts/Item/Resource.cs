@@ -6,7 +6,8 @@ public enum ResourceType
 {
     Wood,
     Stone,
-    Ore
+    Ore,
+    Mushroom
 }
 
 public class Resource : MonoBehaviour, IInteractable

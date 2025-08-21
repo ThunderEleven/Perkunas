@@ -115,8 +115,6 @@ GameObject:
   m_Component:
   - component: {fileID: 800809256488836263}
   - component: {fileID: 9209865461019784521}
-  - component: {fileID: -2708930420422461164}
-  - component: {fileID: -8435821472734096648}
   - component: {fileID: -8193113405567646517}
   m_Layer: 13
   m_Name: Tlie
@@ -154,40 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: {fileID: 0}
---- !u!114 &-2708930420422461164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9204631716267346939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a9047dd9b583cc42b917026e1253af6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
-  capacity: 5
-  dropCountPerHit: 1
-  respawnTime: 30
-  dropItemData: {fileID: 11400000, guid: 1184fa16e0fc09940a431794c6cf6ea7, type: 2}
-  dropPool: {fileID: 0}
-  dropOffsetUp: 0.5
-  dropSpreadRadius: 0.3
---- !u!114 &-8435821472734096648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9204631716267346939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70fe96b6980e525409a32fc6e53532d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 5785506702161948928, guid: b2824ee9dcdd7d043905de58567afb31, type: 3}
-  initialSize: 0
 --- !u!114 &-8193113405567646517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,3 +164,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6712aeb9c2389ac438e0dcb140186cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 11

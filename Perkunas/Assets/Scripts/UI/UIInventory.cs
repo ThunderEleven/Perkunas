@@ -79,12 +79,17 @@ public class UIInventory : UIBase
     public void Toggle()
     {
         if (IsOpen())
-        {
+        { 
             inventoryWindow.SetActive(false);
+            UIManager.Instance.uiStack.Pop();
         }
         else
         {
-            inventoryWindow.SetActive(true);
+            if (UIManager.Instance.uiStack.Count < 4)
+            {
+                inventoryWindow.SetActive(true);
+                UIManager.Instance.uiStack.Push(this);
+            }
         }
     }
 

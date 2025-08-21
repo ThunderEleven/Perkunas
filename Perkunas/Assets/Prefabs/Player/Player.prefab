@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 3220891454881104551}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,6 +374,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e23465ed-daff-47d9-93cf-020adf473e61
     m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3976193111353358288}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 82850a83-35e9-4181-a239-955bdeecfdd5
+    m_ActionName: Player/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3976193111353358288}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnCrafting
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fb30ba3c-5b18-487f-bfd4-36ea8b41fc18
+    m_ActionName: Player/Crafting[/Keyboard/t]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -392,9 +424,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  buildingManager: {fileID: 0}
   condition: {fileID: 0}
   itemData: {fileID: 0}
-  dropPosition: {fileID: 0}
+  dropPosition: {fileID: 4574304909471224138}
 --- !u!114 &3976193111353358288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +450,7 @@ MonoBehaviour:
   maxXLook: 85
   lookSensitivity: 0.1
   canLook: 1
+  isCrafting: 0
   attackDamage: 5
 --- !u!114 &4478943265515994737
 MonoBehaviour:
@@ -434,7 +468,7 @@ MonoBehaviour:
   maxCheckDistance: 3
   layerMask:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 5184
   curInteractGameObject: {fileID: 0}
   prompText: {fileID: 0}
 --- !u!114 &3220891454881104551
@@ -516,6 +550,7 @@ GameObject:
   - component: {fileID: 5609233596720568116}
   - component: {fileID: 6796002925808995161}
   - component: {fileID: 5830506442813105812}
+  - component: {fileID: 2754743042073693179}
   m_Layer: 11
   m_Name: Capsule
   m_TagString: Untagged
@@ -623,3 +658,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b4826d1401948240a4f4bc3c7539078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &2754743042073693179
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8172370526139506224}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

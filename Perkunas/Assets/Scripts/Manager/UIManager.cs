@@ -10,6 +10,8 @@ public class UIManager : MonoSingleton<UIManager>
     private bool _isCleaning;
     private Dictionary<string, UIBase> _uiDictionary = new Dictionary<string, UIBase>();
 
+    public Stack<UIBase> uiStack = new Stack<UIBase>();
+
     private void Awake()
     {
         CreateUI<UIMain>();
@@ -19,6 +21,15 @@ public class UIManager : MonoSingleton<UIManager>
         CreateUI<UIPause>();
         CreateUI<UIDamageIndicator>();
         CreateUI<UICrafting>();
+        
+        uiStack.Push(GetUI<UIMain>());
+        uiStack.Push(GetUI<UIDamageIndicator>());
+        uiStack.Push(GetUI<UIQuickSlot>());
+    }
+
+    private void Update()
+    {
+        
     }
 
     // UI 관리
@@ -74,7 +85,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         // 2. 인스턴스 생성
         GameObject go = Instantiate(prefab);
-        go.transform.parent = this.transform;
+        go.transform.SetParent(this.transform);
 
         // 3. 컴포넌트 획득
         T ui = go.GetComponent<T>();

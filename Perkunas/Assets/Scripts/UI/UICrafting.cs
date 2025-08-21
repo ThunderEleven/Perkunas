@@ -33,12 +33,23 @@ public class UICrafting : UIBase
         CreateSlots();
     }
 
+    private void Update()
+    {
+        if (CharacterManager.Instance.Player.controller.isCrafting && curResultItemData != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                OnClickEnterButton();
+            }
+        }
+    }
+
     private void CreateSlots()
     {
         for (int i = 0; i < slots.Length; i++)
         {
             var prefab = Instantiate(slotPrefab);
-            prefab.transform.parent = slotsPanel;
+            prefab.transform.SetParent(slotsPanel);
             
             slots[i] = slotsPanel.GetChild(i).GetComponent<CraftingItemSlot>();
             slots[i].InitSlot(recipeList[i]);
@@ -67,7 +78,7 @@ public class UICrafting : UIBase
         {
             var prefab = Instantiate(requireItemSlotPrefab);
             prefab.GetComponent<RequireItemSlot>().InitRequireItemSlot(slotInfo.craftItemData.requireItems[i]);
-            prefab.transform.parent = requireItemPanel.transform;
+            prefab.transform.SetParent(requireItemPanel.transform);
         }
     }
 
@@ -91,15 +102,32 @@ public class UICrafting : UIBase
     public void OnClickEscButton()
     {
         Debug.Log("취소 버튼 클릭 메서드");
+        CloseUI();
     }
     
     public override void OpenUI()
     {
         craftingUI.SetActive(true);
+        UIManager.Instance.uiStack.Push(this);
     }
 
     public override void CloseUI()
     {
+        curResultItemData = null;
+        selectedRecipeIcon.sprite = null;
+        selectedRecipeName.text = "";
+        
+        if (requireItemPanel.transform.childCount > 0)
+        {
+            for (int i = requireItemPanel.transform.childCount - 1; i >= 0; i--)
+            {
+                Destroy(requireItemPanel.transform.GetChild(i).gameObject);
+            }
+        }
+        
         craftingUI.SetActive(false);
+        UIManager.Instance.uiStack.Pop();
+        CharacterManager.Instance.Player.controller.isCrafting = false;
+        CharacterManager.Instance.Player.controller.ToggleCursor();
     }
 }

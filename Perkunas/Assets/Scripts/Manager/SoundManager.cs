@@ -26,6 +26,7 @@ public class SoundManager : MonoSingleton<SoundManager>
         {
             DontDestroyOnLoad(gameObject);
         }
+        PrefCheck();
     }
 
     private void Start()

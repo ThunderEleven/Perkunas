@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class UIPause : UIBase
 {
     public GameObject pauseUI;
-    public Slider soundSlider;
+    public Button resumeButton;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
 
     private void Start()
     {
@@ -18,6 +20,8 @@ public class UIPause : UIBase
     {
         pauseUI.SetActive(true);
         UIManager.Instance.uiStack.Push(this);
+        bgmSlider.value = SoundManager.Instance.MusicVolume;
+        sfxSlider.value = SoundManager.Instance.SoundEffectVolume;
         Time.timeScale = 0f;
     }
 
@@ -41,5 +45,15 @@ public class UIPause : UIBase
 #else
         Application.Quit(); // 어플리케이션 종료
 #endif
+    }
+
+    public void OnBgmChanged(float value)
+    {
+        SoundManager.Instance.BgmSliderChanged(value);
+    }
+
+    public void OnSfxChanged(float value)
+    {
+        SoundManager.Instance.SfxSliderChanged(value);
     }
 }

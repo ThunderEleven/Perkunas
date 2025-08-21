@@ -154,6 +154,8 @@ public class Monster : MonoBehaviour, IDamagable
 
     void WanderToNewLocation()
     {
+        // Invoke 된 이후에 SetActive가 false일 수 있기 때문에,
+        // Active In Hierarchy 확인해줘야함
         if (aiState != AIState.Idle || !gameObject.activeInHierarchy) return;
         SetState(AIState.Wandering);
         agent.SetDestination(GetWanderLocation());

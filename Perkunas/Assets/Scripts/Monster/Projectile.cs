@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
             }
             
         }
-        else if (other.collider.CompareTag("Ground"))
+        if (other.collider.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }

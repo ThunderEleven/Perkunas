@@ -55,7 +55,7 @@ MonoBehaviour:
   doesDealDamage: 0
   isRangedWeapon: 1
   projectilePrefab: {fileID: 5746508365519237414, guid: b1a39315ae6df3f4f8eb4f39b91886c5, type: 3}
-  projectileSpeed: 5
+  projectileSpeed: 10
   damage: 10
 --- !u!95 &1855013636012698356
 Animator:

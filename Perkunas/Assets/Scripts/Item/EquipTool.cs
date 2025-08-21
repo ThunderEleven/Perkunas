@@ -71,12 +71,11 @@ public class EquipTool : Equip
         else
         {
             Debug.Log("원거리 공격");
-            Vector3 trans = CharacterManager.Instance.Player.transform.position + CharacterManager.Instance.Player.transform.forward * 2f;
-            GameObject go = Instantiate(projectilePrefab, trans, Quaternion.identity);
+            GameObject go = Instantiate(projectilePrefab, CharacterManager.Instance.player.projectileSpawn.position, Quaternion.identity);
             Rigidbody rb = go.GetComponent<Rigidbody>();
             Projectile proj = go.GetComponent<Projectile>();
             proj.Init(damage);
-            if(rb != null) rb.AddForce(CharacterManager.Instance.Player.transform.forward * projectileSpeed, ForceMode.Impulse);
+            if(rb != null) rb.AddForce(Camera.main.transform.forward * projectileSpeed, ForceMode.Impulse);
         }
     }
 

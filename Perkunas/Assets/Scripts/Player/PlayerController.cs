@@ -39,6 +39,15 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            UIManager.Instance.GetUI<UICrafting>().OpenUI();
+            ToggleCursor();
+        }
+    }
 
     // Update is called once per frame
     void FixedUpdate()

@@ -333,9 +333,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ItemSlot, Assembly-CSharp
-        m_MethodName: OnClickButton
+      - m_Target: {fileID: 8355960184565219176}
+        m_TargetAssemblyTypeName: CraftingItemSlot, Assembly-CSharp
+        m_MethodName: OnClickIcon
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -372,6 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d6dd79fd596bf419861fb82a248de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  craftItemData: {fileID: 0}
   icon: {fileID: 841779500908919320}
   quantityText: {fileID: 8801716991019662394}
-  craftItemData: {fileID: 0}
+  crafting: {fileID: 0}

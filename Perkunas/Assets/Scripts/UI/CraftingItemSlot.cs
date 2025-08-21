@@ -6,15 +6,22 @@ using UnityEngine.UI;
 
 public class CraftingItemSlot : MonoBehaviour
 {
+    [SerializeField] public CraftRecipeEditor craftItemData;
+    
     public Image icon;
     public TextMeshProUGUI quantityText;
-    
-    [SerializeField] private CraftRecipeEditor craftItemData;
 
+    public UICrafting crafting;
+    
     public void InitSlot(CraftRecipeEditor recipe)
     {
         craftItemData = recipe;
-        icon.sprite = craftItemData.resultItemIcon;
+        icon.sprite = craftItemData.resultItem.resItem.icon;
         quantityText.text = craftItemData.resultItem.num.ToString();
+    }
+
+    public void OnClickIcon()
+    {
+        crafting.ChangeSelectedRecipeInfo(this);
     }
 }

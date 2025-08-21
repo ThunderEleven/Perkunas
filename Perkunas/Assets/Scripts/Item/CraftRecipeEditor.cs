@@ -25,6 +25,6 @@ public class CraftRecipeEditor : ScriptableObject
     [Header("제작 결과물 아이템 정보")] 
     public ResultItemInfo resultItem;
 
-    [Header("제작 결과물 아이템 아이콘")] 
-    public Sprite resultItemIcon;
+    // [Header("제작 결과물 아이템 아이콘")] 
+    // public Sprite resultItemIcon;
 }

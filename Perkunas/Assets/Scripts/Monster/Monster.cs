@@ -289,6 +289,7 @@ public class Monster : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("몬스터가 데미지를 입음");
         curHealth -= damage;
         if (curHealth <= 0)
         {

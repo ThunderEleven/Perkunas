@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 9209865461019784521}
   - component: {fileID: -2708930420422461164}
   - component: {fileID: -8435821472734096648}
+  - component: {fileID: -8193113405567646517}
   m_Layer: 13
   m_Name: Tlie
   m_TagString: Build
@@ -187,3 +188,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 5785506702161948928, guid: b2824ee9dcdd7d043905de58567afb31, type: 3}
   initialSize: 0
+--- !u!114 &-8193113405567646517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9204631716267346939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6712aeb9c2389ac438e0dcb140186cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

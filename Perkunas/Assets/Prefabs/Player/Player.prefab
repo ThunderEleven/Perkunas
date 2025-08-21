@@ -470,23 +470,23 @@ MonoBehaviour:
   curHp: 0
   maxHp: 100
   startHp: 100
-  passiveHp: 5
+  passiveHp: 2
   hpUIBar: {fileID: 0}
   noHungerHealthDecay: 2
   curStamina: 0
   maxStamina: 100
   startStamina: 100
-  passiveStamina: 20
+  passiveStamina: 13
   staminaUIBar: {fileID: 0}
   curHunger: 0
   maxHunger: 100
   startHunger: 100
-  passiveHunger: 5
+  passiveHunger: 3
   hungerUIBar: {fileID: 0}
   curThirst: 0
   maxThirst: 100
   startThirst: 100
-  passiveThirst: 20
+  passiveThirst: 3
   thirstUIBar: {fileID: 0}
 --- !u!114 &4100993499126989742
 MonoBehaviour:

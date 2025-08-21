@@ -157,15 +157,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
     }
-    public void AttackWithRaycastHit(RaycastHit hit)
-    {
-        Monster enemy = hit.collider.GetComponent<Monster>();
-        if (enemy != null)
-        {
-            enemy.TakeDamage(attackDamage);
-            Debug.Log($"Hit {hit.collider.name} for {attackDamage} damage!");
-        }
-    }
 
     // [SerializeField]GameObject buildingPrefab; // Ãß°¡
 

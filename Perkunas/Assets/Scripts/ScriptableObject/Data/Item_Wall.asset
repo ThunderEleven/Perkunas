@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c98f8eb31a29574f819ca1bf01391d1, type: 3}
+  m_Name: Item_Wall
+  m_EditorClassIdentifier: 
+  displayName: "\uBCBD"
+  description: 
+  itemType: 1
+  icon: {fileID: 0}
+  dropPrefab: {fileID: 463357639965786501, guid: 6f5087c8e3b934e4e8fe3e1fbb412745, type: 3}
+  canStack: 1
+  maxStackAmount: 100
+  consumables: []
+  equipPrefab: {fileID: 0}
+  placable: 1
+  snapToGridEdge: 1
+  buildingPrefab: {fileID: 463357639965786501, guid: 246607c16f067f247ad040470431e5b1, type: 3}
+  ignoreObjects: []

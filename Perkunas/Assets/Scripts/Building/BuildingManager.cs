@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UIElements;
 
 public class BuildingManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class BuildingManager : MonoBehaviour
     GameObject visualisedObjectType; // 시각화된 오브젝트 타입 GameObject -> item 변경
     Transform visualisedObject; // 시각화된 오브젝트 Transform
 
+    public bool onClick = false;
     void OnDrawGizmos()
     {
         // 그리드 시각화 여부
@@ -54,7 +56,7 @@ public class BuildingManager : MonoBehaviour
 
     float rotY;
     // 오브젝트 배치
-    public void PlaceObject(Vector3 pos, GameObject obj)
+    public void PlaceObject(Vector3 pos, ItemData obj)
     {
         Vector3 basePos = pos;
         if (Input.GetKeyDown(KeyCode.Q)) // 시계 방향 회전
@@ -64,25 +66,28 @@ public class BuildingManager : MonoBehaviour
 
         pos = GetNearestGridPosition(pos); // 그리드에 맞게 위치 조정
 
-        //if(obj.snapToGridEdge)
-        //{
-        //    Vector2 direction = new Vector2(basePos.x - pos.x, basePos.z - pos.z);
-        //    float x = direction.x < 0 ? -1 : 1;
-        //    float z = direction.y < 0 ? -1 : 1;
+        if (obj.snapToGridEdge)
+        {
+            
+            Vector2 direction = new Vector2(basePos.x - pos.x, basePos.z - pos.z);
+            float x = direction.x < 0 ? -1 : 1;
+            float z = direction.y < 0 ? -1 : 1;
 
-        //    if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        //    {
-        //        rotY = 90;
-        //        pos += new Vector3(0,0, z * cellWidth / 2); // Z축 방향으로 위치 조정
-        //    }
-        //    else
-        //    {
-        //        rotY = 0;
-        //        pos += new Vector3(x * cellWidth / 2, 0, 0); // X축 방향으로 위치 조정
-        //    }
-        //}
+            if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+            {
+                rotY = 0;
+                pos += new Vector3(0, 0, cellWidth * z / 2); // Z축 방향으로 위치 조정
+                Debug.Log($"{pos}");
+            }
+            else
+            {
+                rotY = 90;
+                pos += new Vector3(cellWidth * x / 2, 0, 0); // X축 방향으로 위치 조정
+                //Debug.Log($"11111111111111");
+            }
+        }
 
-        if(visualisedObject == null || visualisedObjectType != obj)
+        if (visualisedObject == null || visualisedObjectType != obj)
         {
             StartVisualisingObject(obj); // 오브젝트 시각화 시작
         }
@@ -91,7 +96,7 @@ public class BuildingManager : MonoBehaviour
     }
 
     // 오브젝트 시각화
-    private void VisualiseObject(Vector3 pos, float rotY, GameObject obj)
+    private void VisualiseObject(Vector3 pos, float rotY, ItemData obj)
     {
         bool isOccupied = false;
 
@@ -103,47 +108,55 @@ public class BuildingManager : MonoBehaviour
         visualisedObject.position = pos; // 시각화된 오브젝트 위치 설정
         visualisedObject.rotation = Quaternion.Euler(0, rotY, 0); // 시각화된 오브젝트 회전 설정
 
-        Collider[] colliders = visualisedObject.GetComponentsInChildren<Collider>(); // 시각화된 오브젝트의 모든 콜라이더 가져오기
-        foreach (Collider collider in colliders)
-        {
-            bool breakBothLoops = false; // 두 루프를 모두 중단할지 여부
+        //Collider[] colliders = visualisedObject.GetComponentsInChildren<Collider>(); // 시각화된 오브젝트의 모든 콜라이더 가져오기
+        //foreach (Collider collider in colliders)
+        //{
+        //    bool breakBothLoops = false; // 두 루프를 모두 중단할지 여부
 
-            collider.isTrigger = true; // 모든 콜라이더를 트리거로 설정
+        //    collider.isTrigger = true; // 모든 콜라이더를 트리거로 설정
 
-            RaycastHit[] hits = Physics.BoxCastAll(collider.bounds.center, new Vector3(collider.bounds.size.x * 0.4f, collider.bounds.size.y * 0.4f,
-collider.bounds.size.z * 0.4f), Vector3.up, Quaternion.identity, 1, buildLayer); // 박스 캐스트를 사용하여 충돌 검사
+        //    RaycastHit[] hits = Physics.BoxCastAll(collider.bounds.center, new Vector3(collider.bounds.size.x * 0.4f, collider.bounds.size.y * 0.4f,
+        //    collider.bounds.size.z * 0.4f), Vector3.up, Quaternion.identity, 1, buildLayer); // 박스 캐스트를 사용하여 충돌 검사
 
-            foreach (RaycastHit hit in hits)
-            {
-                // BuiltObject가 있는지 확인
-               /* if (hit.collider != null && hit.collider.GetComponentInParent<BuiltObject>() != null &&
-    !obj.ignoreObjects.Contains(hit.collider.GetComponentInParent<BuiltObject>().objectType))*/
-                {
-                    isOccupied = true;
-                    breakBothLoops = true;
-                    break;
-                }
-            }
 
-            if(breakBothLoops) // 두 루프를 모두 중단해야 하는 경우
-            {
-                break; // 외부 루프 중단
-            }
-        }
+        //    foreach (RaycastHit hit in hits)
+        //    {
+        //        // BuiltObject가 있는지 확인
+        //        if (hit.collider != null && hit.collider.GetComponentInParent<BuiltObject>() != null &&
+        //                         !obj.ignoreObjects.Contains(hit.collider.GetComponentInParent<BuiltObject>().objectType))
+        //        {
+        //            isOccupied = true;
+        //            breakBothLoops = true;
+        //            Debug.Log($"충돌: {hit.collider.name}"); // 충돌한 오브젝트 이름 출력
+        //            Debug.Log($"충돌위치: {hit.collider.transform.position}"); // 충돌한 오브젝트 이름 출력
+        //            break;
+        //        }
+        //    }
+
+        //    if(breakBothLoops) // 두 루프를 모두 중단해야 하는 경우
+        //    {
+        //        break; // 외부 루프 중단
+        //    }
+        //}
 
         Color color = isOccupied ? new Color(0.7f, 0.3f, 0.3f, 0.5f) : new Color(0.3f, 0.7f, 0.3f, 0.5f); // 충돌 여부에 따라 색상 설정
         transparentMat.color = color; // 투명 재질의 색상 설정
 
-        if (Input.GetMouseButtonDown(0) && !isOccupied) // 마우스 왼쪽 버튼 클릭 시
+
+        if (onClick && !isOccupied) // 마우스 왼쪽 버튼 클릭 시
         {
             BuildObject(pos, rotY, obj); // 오브젝트 배치
+        }
+        else if(onClick)
+        {
+            onClick = false;
         }
     }
 
     // 오브젝트 시각화 시작
-    private void StartVisualisingObject(GameObject obj)
+    private void StartVisualisingObject(ItemData obj)
     {
-        visualisedObjectType = obj; // 시각화된 오브젝트 타입 설정
+        visualisedObjectType = obj.buildingPrefab; // 시각화된 오브젝트 타입 설정
 
         if(visualisedObject != null)
         {
@@ -167,7 +180,7 @@ collider.bounds.size.z * 0.4f), Vector3.up, Quaternion.identity, 1, buildLayer);
 
         foreach (Transform child in visualisedObject)
         {
-            child.gameObject.layer = 21; // 자식 오브젝트의 레이어를 3으로 설정
+            child.gameObject.layer = 2;
         }
     }
 
@@ -177,14 +190,14 @@ collider.bounds.size.z * 0.4f), Vector3.up, Quaternion.identity, 1, buildLayer);
         if(visualisedObject != null)
         {
             Destroy(visualisedObject.gameObject); // 시각화된 오브젝트 제거
-
         }
     }
 
 
-    private void BuildObject(Vector3 pos, float rotY, GameObject obj)
+    private void BuildObject(Vector3 pos, float rotY, ItemData obj)
     {
-        GameObject newObj = Instantiate(obj, pos, Quaternion.Euler(0, rotY, 0)); // 오브젝트 생성
+        onClick = false;
+        GameObject newObj = Instantiate(obj.buildingPrefab, pos, Quaternion.Euler(0, rotY, 0)); // 오브젝트 생성
         newObj.transform.localScale = new Vector3(cellWidth, cellHeight, cellWidth); // 오브젝트 크기 조정
 
 
@@ -198,7 +211,8 @@ collider.bounds.size.z * 0.4f), Vector3.up, Quaternion.identity, 1, buildLayer);
         newObj.layer = layerIndex; // 오브젝트의 레이어를 설정
 
         BuiltObject builtObject = newObj.GetComponent<BuiltObject>(); // BuiltObject 컴포넌트 가져오기
-        // builtObject.objectType = obj;
+        builtObject.objectType = obj;
+        
     }
 }
 

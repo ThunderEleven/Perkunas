@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8709657064704800014}
-  m_Layer: 0
+  - component: {fileID: -1104867195092883391}
+  - component: {fileID: 4933429272479772853}
+  - component: {fileID: -676526245125191412}
+  m_Layer: 13
   m_Name: Wall_A
-  m_TagString: Untagged
+  m_TagString: Build
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +35,53 @@ Transform:
   - {fileID: 7576724740312951853}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1104867195092883391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463357639965786501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7a0f3b87fb3b34f965976c77876536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: {fileID: 0}
+--- !u!114 &4933429272479772853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463357639965786501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9047dd9b583cc42b917026e1253af6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  capacity: 5
+  dropCountPerHit: 1
+  respawnTime: 30
+  dropItemData: {fileID: 11400000, guid: 1184fa16e0fc09940a431794c6cf6ea7, type: 2}
+  dropPool: {fileID: 0}
+  dropOffsetUp: 0.5
+  dropSpreadRadius: 0.3
+--- !u!114 &-676526245125191412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463357639965786501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fe96b6980e525409a32fc6e53532d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5785506702161948928, guid: b2824ee9dcdd7d043905de58567afb31, type: 3}
+  initialSize: 0
 --- !u!1 &1603519908461879416
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +93,8 @@ GameObject:
   - component: {fileID: 7576724740312951853}
   - component: {fileID: 275511919220953155}
   - component: {fileID: 4185740915564055364}
-  m_Layer: 0
+  - component: {fileID: 1417079884884549183}
+  m_Layer: 13
   m_Name: Wall_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,3 +166,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1417079884884549183
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603519908461879416}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 4, z: 0.19999991}
+  m_Center: {x: 2, y: 2, z: 0.000000037252903}

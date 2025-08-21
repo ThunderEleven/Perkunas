@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     public BuildingManager buildingManager; // 추가
     public PlayerCondition condition;
+    public Equipment equip;
 
     public ItemData itemData;
     public Action addItem;
@@ -22,5 +23,6 @@ public class Player : MonoBehaviour
         controller = GetComponent<PlayerController>();
         buildingManager = GetComponent<BuildingManager>(); // 추가
         condition = GetComponent<PlayerCondition>();
+        equip = GetComponent<Equipment>();
     }
 }

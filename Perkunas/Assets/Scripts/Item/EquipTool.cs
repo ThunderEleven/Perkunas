@@ -64,6 +64,7 @@ public class EquipTool : Equip
 
                 if (doesDealDamage && hit.collider.TryGetComponent(out IDamagable damagable))
                 {
+                    Debug.Log($"공격: ");
                     damagable.TakePhysicalDamage(damage);
                 }
             }

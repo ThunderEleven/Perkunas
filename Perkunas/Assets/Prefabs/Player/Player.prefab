@@ -391,6 +391,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 82850a83-35e9-4181-a239-955bdeecfdd5
     m_ActionName: Player/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fb30ba3c-5b18-487f-bfd4-36ea8b41fc18
+    m_ActionName: Player/Crafting[/Keyboard/t]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -414,6 +418,7 @@ MonoBehaviour:
   equip: {fileID: 0}
   itemData: {fileID: 0}
   dropPosition: {fileID: 4574304909471224138}
+  projectileSpawn: {fileID: 0}
 --- !u!114 &3976193111353358288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,7 +459,7 @@ MonoBehaviour:
   maxCheckDistance: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 9280
+    m_Bits: 1088
   curInteractGameObject: {fileID: 0}
   prompText: {fileID: 0}
 --- !u!114 &3220891454881104551

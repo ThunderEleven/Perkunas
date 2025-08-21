@@ -17,53 +17,84 @@ public class MonsterManager : MonoSingleton<MonsterManager>
     [SerializeField] private int groupCount = 5; // 몬스터 그룹 갯수
     [SerializeField] private float minDistance = 5f; // 그룹 간 최소 간격
     [SerializeField] private int maxRetryCount = 30; // NavMesh 유효 위치 찾기 재시도 횟수
-    [SerializeField] private float respawnDelay = 60f;
+    [SerializeField] private float respawnDelay;
+    private WaitForSeconds respawnWait;
+    
+    [Header("Boss Settings")]
+    [SerializeField] private Vector3 bossSpawnPoints;
+    [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private float bossRespawnDelay;
+    private WaitForSeconds bossRespawnWait;
     
     private Dictionary<Vector3, GameObject> activeMonsterGroups = new Dictionary<Vector3, GameObject>();
 
     private Dictionary<Vector3, ObjectPool<GameObject>> groupPools = new Dictionary<Vector3, ObjectPool<GameObject>>();
     private List<Vector3> spawnPositions = new List<Vector3>();
 
+    
+    /// 몬스터 매니저 작동 순서
+    /// 1. 정해진 groupCount 만큼 랜덤 위치를 뽑는다. (GenerateRandomPositions)
+    /// 2. 뽑은 랜덤 위치 하나 당 오브젝트 풀을 만든다. (CreatePoolForPosition(Position, Prefab)
+    /// 3. 보스를 위한 오브젝트 풀도 만들어 준다.
+    /// 4. 그룹 풀은 위치-오브젝트풀 의 키-값으로 저장된다. (groupPools)
+    /// 5. 이제 정해둔 위치(키)에 맞게 실제로 몬스터들을 스폰한다 (SpawnGroupAt(Position))
+    
     private void Awake()
     {
         Debug.Log("Monster Manager Awake");
+
+        respawnWait = new WaitForSeconds(respawnDelay);
+        bossRespawnWait = new WaitForSeconds(bossRespawnDelay);
+        
         spawnPositions = GenerateRandomPositions(cornerA, cornerB, groupCount, minDistance);
         if(spawnPositions == null || spawnPositions.Count == 0) 
             Debug.LogError("Spawn Position is null");
+        
         // 포지션 하나마다 몬스터 그룹 설정
         foreach (var pos in spawnPositions)
         {
             GameObject prefab = monsterGroupPrefabs[Random.Range(0, monsterGroupPrefabs.Count)];
-
-            var pool = new ObjectPool<GameObject>(
-                createFunc: () =>
-                {
-                    GameObject obj = Instantiate(prefab, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
-                    obj.SetActive(false);
-                    // 각 몬스터에 manager/그룹 키 알려주기
-                    foreach (var m in obj.GetComponentsInChildren<Monster>())
-                    {
-                        m.Init(this, pos);
-                        m.onDeath += OnMonsterDeath;
-                    }
-                    return obj;
-                },
-                actionOnRelease: (obj) => { obj.SetActive(false); },
-                actionOnDestroy: (obj) => { Destroy(obj); },
-                collectionCheck: true,
-                defaultCapacity: 1, // 어차피 풀 관리 할 게 하나밖에 없음. 그룹단위라서
-                maxSize: 5
-            );
-
-            groupPools[pos] = pool;
+            CreatePoolForPosition(pos, prefab);
         }
+
+        // 보스 위치 풀 만들기
+        CreatePoolForPosition(bossSpawnPoints, bossPrefab);
 
         // 초기 스폰
         foreach (var pos in spawnPositions)
-        {
-            Debug.Log($"{pos}에서 생성됨");
             SpawnGroupAt(pos);
-        }
+        
+        SpawnGroupAt(bossSpawnPoints);
+    }
+    
+    /// <summary>
+    /// 포지션이랑 프리팹을 받으면, 그걸로 오브젝트 풀을 생성해 줌.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="prefab"></param>
+    private void CreatePoolForPosition(Vector3 pos, GameObject prefab)
+    {
+        var pool = new ObjectPool<GameObject>(
+            createFunc: () =>
+            {
+                GameObject obj = Instantiate(prefab, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+                obj.SetActive(false);
+                foreach (var m in obj.GetComponentsInChildren<Monster>())
+                {
+                    m.Init(this, pos);
+                    m.onDeath += OnMonsterDeath;
+                }
+                return obj;
+            },
+            actionOnGet: (obj) => { obj.SetActive(true); },
+            actionOnRelease: (obj) => { obj.SetActive(false); },
+            actionOnDestroy: (obj) => { Destroy(obj); },
+            collectionCheck: true,
+            defaultCapacity: 1,
+            maxSize: 3
+        );
+    
+        groupPools[pos] = pool;
     }
 
     /// <summary>
@@ -163,7 +194,15 @@ public class MonsterManager : MonoSingleton<MonsterManager>
 
     private IEnumerator RespawnAfterDelay(Vector3 groupKey)
     {
-        yield return new WaitForSeconds(respawnDelay);
+        if (groupKey == bossSpawnPoints)
+        {
+            yield return bossRespawnWait;
+        }
+        else
+        {
+            yield return respawnWait;
+        }
+        
         Debug.Log("몬스터 재생성");
         SpawnGroupAt(groupKey);
     }

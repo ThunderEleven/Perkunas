@@ -26,9 +26,9 @@ public class Monster : MonoBehaviour
     protected NavMeshAgent agent;
     protected AIState aiState;
     protected bool isReturning = false;
-    protected Vector3 spawnPosition;
-    protected float spawnDistance;
-    protected const float MaxDistFromSpawn = 10f;
+    protected Vector3 spawnPosition; // 스폰 장소
+    protected float spawnDistance; // 스폰 장소부터 이 몬스터 까지의 거리
+    protected const float MaxDistFromSpawn = 30f; // Returning 상태로 돌아가기 위한 경계점. 스폰 장소에서 이만큼 멀어지면 다시 돌아간다.
 
     // Attack Setting
     protected float lastAttackTime;
@@ -40,6 +40,8 @@ public class Monster : MonoBehaviour
     protected SkinnedMeshRenderer[] meshRenderers;
     protected float curHealth;
     private Coroutine damagedCoroutine;
+    private float sampleMaxDistance; // 플레이어 주변에서 NavMesh를 찾을건데, 그 NavMesh의 최대 거리
+    private float playerheight; // 플레이어 키
 
     public void Init(MonsterManager manager, Vector3 groupKey)
     {   
@@ -55,6 +57,8 @@ public class Monster : MonoBehaviour
         meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         if(data == null) Debug.LogError("There's no monster data");
         spawnPosition = transform.position;
+        playerheight = GetComponent<CapsuleCollider>().height;
+        sampleMaxDistance = playerheight + 2f;
     }
 
     void Start()
@@ -69,6 +73,11 @@ public class Monster : MonoBehaviour
         // 플레이어와 몬스터간의 거리 계산
         playerDistance = Vector3.Distance(CharacterManager.Instance.Player.transform.position, transform.position);
         spawnDistance = Vector3.Distance(spawnPosition, transform.position);
+        
+        // State가 멈춤 상태가 아니면 Moving 애니메이션 재생
+        
+        if(animator != null)  animator.SetBool("Moving", aiState != AIState.Idle);
+        
         // 스폰 위치와 너무 떨어져있으면 돌아가도록 함
         if (!isReturning && spawnDistance > MaxDistFromSpawn)
         {
@@ -76,10 +85,8 @@ public class Monster : MonoBehaviour
             isReturning = true;
         }
         
-        // State가 멈춤 상태가 아니면 Moving 애니메이션 재생
+        // Debug.Log($"상태 : {aiState} | 플레이어 거리 : {playerDistance}");
         
-        if(animator != null)  animator.SetBool("Moving", aiState != AIState.Idle);
-
         switch (aiState)
         {
             case AIState.Idle:
@@ -137,6 +144,7 @@ public class Monster : MonoBehaviour
 
         if (playerDistance < data.detectDistance)
         {
+            Debug.Log("플레이어 접근");
             SetState(AIState.Attacking);
             AttackingUpdate();
         }
@@ -200,9 +208,11 @@ public class Monster : MonoBehaviour
 
     void AttackingUpdate()
     {
+        // Debug.Log("Attacking Update");
         // 플레이어와의 거리가 공격 범위 내에 있고, 시야각 내부에 있을 때
         if (playerDistance < data.attackDistance && IsPlayerInFieldOfView())
         {
+            // Debug.Log("공격 범위 / 시야각 내부에 있음");
             agent.isStopped = true;
 
             // 플레이어 방향 바라보기
@@ -213,7 +223,7 @@ public class Monster : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
-
+            
             if (Time.time - lastAttackTime > data.attackRate)
             {
                 lastAttackTime = Time.time;
@@ -225,16 +235,31 @@ public class Monster : MonoBehaviour
             // 그럼에도 플레이어가 공격 범위 내에 있을 때
             if (playerDistance < data.detectDistance)
             {
-                // 플레이어에게 가는 새로운 길을 또 만들어서 가려는 시도를 함
-                agent.isStopped = false;
-                NavMeshPath path = new NavMeshPath();
-                // 플레이어한테 갈 수 있으면 감
-                if (agent.CalculatePath(CharacterManager.Instance.Player.transform.position, path))
+                NavMeshHit hit;
+                // 플레이어 근처의 NavMesh 를 찾음
+                if (NavMesh.SamplePosition(
+                        CharacterManager.Instance.Player.transform.position, 
+                        out hit, 
+                        sampleMaxDistance,
+                        NavMesh.AllAreas))
                 {
-                    agent.SetDestination(CharacterManager.Instance.Player.transform.position);
+                    agent.isStopped = false;
+                    NavMeshPath path = new NavMeshPath();
+                    // 플레이어 근처 NavMesh한테 갈 수 있으면 감
+                    if (agent.CalculatePath(hit.position, path))
+                    {
+                        agent.SetDestination(hit.position);
+                    }
+                    else // 갈 수 없으면 추적을 멈추고 다시 Wandering 상태로 바꿈
+                    {
+                        Debug.Log("갈 수 없음!");
+                        agent.SetDestination(transform.position);
+                        SetState(AIState.Wandering);
+                    }
                 }
-                else // 갈 수 없으면 추적을 멈추고 다시 Wandering 상태로 바꿈
+                else
                 {
+                    Debug.Log("플레이어 근처에 NavMesh를 찾을 수 없음!");
                     agent.SetDestination(transform.position);
                     agent.isStopped = false;
                     SetState(AIState.Wandering);

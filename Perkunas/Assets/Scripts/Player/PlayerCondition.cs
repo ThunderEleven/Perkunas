@@ -39,8 +39,9 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     public float startThirst;    // 시작 갈증
     public float passiveThirst;  // 자동으로 감소되는 갈증
     public Image thirstUIBar;
-
+    
     public event Action onTakeDamage;
+    private bool isDie = false;
     
     private void Start()
     {
@@ -48,6 +49,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         curStamina = startStamina;
         curHunger = startHunger;
         curThirst = startThirst;
+        isDie = false;
 
         hpUIBar = UIManager.Instance.GetUI<UIMain>().hpBar;
         staminaUIBar = UIManager.Instance.GetUI<UIMain>().staminaBar;
@@ -59,6 +61,24 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     {
         GetPercentage();
         CalculatePassiveValue();
+
+        if (curStamina < maxStamina)
+        {
+            HealStamina();
+        }
+
+        if (curHp <= 0)
+        {
+            if (!isDie)
+            {
+                PlayerDie();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            curHp = 0;
+        }
     }
 
     // UI 업데이트
@@ -70,12 +90,33 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         thirstUIBar.fillAmount = curThirst / maxThirst;
     }
 
+    private void PlayerDie()
+    {
+        Debug.Log("플레이어 사망");
+        Time.timeScale = 0f;
+        isDie = true;
+        UIManager.Instance.OpenUI<UIGameOver>();
+    }
+    
+    private void HealStamina()
+    {
+        if (curThirst > 0)
+        {
+            AddStamina(passiveStamina * Time.deltaTime);
+            SubtractThirst(passiveThirst * Time.deltaTime);
+        }
+        else
+        {
+            return;
+        }
+    }
+    
     // 각 컨디션의 passiveValue들을 계산하는 메서드
     private void CalculatePassiveValue()
     {
         SubtractHunger(passiveHunger * Time.deltaTime);
-        AddStamina(passiveStamina * Time.deltaTime);
-        SubtractThirst(passiveThirst * Time.deltaTime);
+        // AddStamina(passiveStamina * Time.deltaTime);
+        // SubtractThirst(passiveThirst * Time.deltaTime);
 
         if (curHunger <= 0f)
         {
@@ -100,6 +141,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         curStamina -= amount;
         return true;
     }
+    
     // 각 컨디션 별로 add와 subtract 메서드들 구현 -> switch로 한번에 통합?
     public void AddHp(float amount)
     {

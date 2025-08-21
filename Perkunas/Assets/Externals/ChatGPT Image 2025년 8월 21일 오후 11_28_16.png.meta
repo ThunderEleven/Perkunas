@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -134,7 +134,49 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "ChatGPT Image 2025\uB144 8\uC6D4 21\uC77C \uC624\uD6C4 11_28_16_0"
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 519
+        width: 375
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4925f51d697787447902c3ea9690f938
+      internalID: 854602160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "ChatGPT Image 2025\uB144 8\uC6D4 21\uC77C \uC624\uD6C4 11_28_16_1"
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 104
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa119f869d0fdfa458fbafb606ab1376
+      internalID: 10792043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +187,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "ChatGPT Image 2025\uB144 8\uC6D4 21\uC77C \uC624\uD6C4 11_28_16_0": 854602160
+      "ChatGPT Image 2025\uB144 8\uC6D4 21\uC77C \uC624\uD6C4 11_28_16_1": 10792043
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

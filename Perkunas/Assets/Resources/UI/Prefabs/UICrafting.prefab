@@ -1387,6 +1387,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 02a9dc75afb433e4cb75cc78d5830dbc, type: 2}
   - {fileID: 11400000, guid: 01ce88e9b02a66d40b32df621189fc11, type: 2}
   - {fileID: 11400000, guid: e3099b8ed2a928b4183670131997732c, type: 2}
+  - {fileID: 11400000, guid: 63023de3cb19607468ddb5ae092f8963, type: 2}
+  - {fileID: 11400000, guid: f2d89dd2c56a1ef4f8919aa29ecb1e69, type: 2}
   slots: []
   requireItemSlotPrefab: {fileID: 1656267573759491161, guid: 5e8dc05e75aae1d41a8db5b65726e8d2, type: 3}
   slotPrefab: {fileID: 6598439777610389963, guid: ace3f13bf2902ee4cb99831372bf01a7, type: 3}

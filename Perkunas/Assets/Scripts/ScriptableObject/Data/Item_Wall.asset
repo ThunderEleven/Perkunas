@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: "\uBCBD"
   description: 
   itemType: 3
-  icon: {fileID: 0}
+  icon: {fileID: 854602160, guid: 9cc5cf573b8d7f2469e2732dd8ed2813, type: 3}
   dropPrefab: {fileID: 463357639965786501, guid: 6f5087c8e3b934e4e8fe3e1fbb412745, type: 3}
   canStack: 1
   maxStackAmount: 100

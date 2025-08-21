@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b342b2061753b45a195a6621681f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: b30e5e263a3af974fa58aa894f636164, type: 2}
+  data: {fileID: 11400000, guid: 778ba6ba65efd9449bb3737ad1e9c3fd, type: 2}
   manager: {fileID: 0}
   groupKey: {x: 0, y: 0, z: 0}
 --- !u!136 &1035397763016817308

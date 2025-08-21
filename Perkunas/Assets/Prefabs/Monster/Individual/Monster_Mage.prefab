@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edc0483628eb024ab50a0a4e921cfec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 924204ae3a205b9418e5fbf3f19f9551, type: 2}
+  data: {fileID: 11400000, guid: 334b310740508d54e9f3e9a1f3d06850, type: 2}
   manager: {fileID: 0}
   groupKey: {x: 0, y: 0, z: 0}
   projectileSpawn: {fileID: 4359529889192673205}

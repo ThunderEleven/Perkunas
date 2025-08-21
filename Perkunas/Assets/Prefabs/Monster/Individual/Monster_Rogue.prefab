@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edc0483628eb024ab50a0a4e921cfec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 941ab724bba34574097e7be09df7b09d, type: 2}
+  data: {fileID: 11400000, guid: 7a770ae5836dbe8458e641424d4e930b, type: 2}
   manager: {fileID: 0}
   groupKey: {x: 0, y: 0, z: 0}
   projectileSpawn: {fileID: 6179421947890192027}

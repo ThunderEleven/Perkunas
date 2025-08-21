@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab294481a81fe5d4d9d77b5f472dab83, type: 3}
-  m_Name: Monster_Warrior
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 0}
+  m_Name: NewMonsterData_Warrior
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterPrefab: {fileID: 4780859905220947627, guid: 7a2468e5b97543f49a34ab199a351b95, type: 3}
   maxHealth: 1
   walkSpeed: 3

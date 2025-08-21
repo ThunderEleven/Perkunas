@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIPause : UIBase
 {
     public GameObject pauseUI;
-    public Button resumeButton;
+    public Slider soundSlider;
 
     private void Start()
     {

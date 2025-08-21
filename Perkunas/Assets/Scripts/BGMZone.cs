@@ -7,7 +7,7 @@ public class BGMZone : MonoBehaviour
     public AudioSource audioSource;
     public float fadeTime;
     public float maxVolume;
-    private float targetVolume;
+    [SerializeField] private float targetVolume;
     private bool isPlaying = false; // 플레이어가 들어왔을때 재생시키자
 
     void Start()

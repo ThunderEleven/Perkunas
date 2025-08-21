@@ -50,9 +50,9 @@ MonoBehaviour:
   attacking: 0
   attackDistance: 3
   useStamina: 20
-  doesGatherResources: 0
-  doesDealDamage: 0
-  damage: 0
+  doesGatherResources: 1
+  doesDealDamage: 1
+  damage: 13
 --- !u!95 &-2817299922961486402
 Animator:
   serializedVersion: 5

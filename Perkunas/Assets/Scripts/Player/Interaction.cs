@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.Properties;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 using UnityEngine.InputSystem;
 
 public class Interaction : MonoBehaviour
@@ -38,14 +34,41 @@ public class Interaction : MonoBehaviour
                 curInteractGameObject = hit.collider.gameObject;
                 curinteractable = hit.collider.GetComponent<IInteractable>();
                 SetPormpText();
-                Debug.Log($"감지된 오브젝트: {hit.collider.name}");
+
+            }
+            else if (Physics.Raycast(ray, out hit, maxCheckDistance))
+            {
+
+                if (CharacterManager.Instance.Player.equip.builtObject != null)
+                {
+                    ItemData data = CharacterManager.Instance.Player.equip.BuildItemData;
+
+
+                    if (data != null && data.placable)
+                    {
+                        CharacterManager.Instance.Player.buildingManager.PlaceObject(hit.point, data);
+
+                    }
+                    else
+                    {
+                        CharacterManager.Instance.Player.buildingManager.EndVisualisingObject();
+                    }
+                }
+                else
+                {
+                    CharacterManager.Instance.Player.buildingManager.EndVisualisingObject();
+                }
             }
             else
             {
                 curInteractGameObject = null;
                 curinteractable = null;
                 prompText.gameObject.SetActive(false);
+                CharacterManager.Instance.Player.buildingManager.EndVisualisingObject();
             }
+
+
+            
         }
     }
 

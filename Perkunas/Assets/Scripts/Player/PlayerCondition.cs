@@ -89,6 +89,16 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         onTakeDamage?.Invoke();
     }
 
+    public bool UseStamina(float amount)
+    {
+        if(curStamina - amount < 0f)
+        {
+            return false;
+        }
+
+        curStamina -= amount;
+        return true;
+    }
     // 각 컨디션 별로 add와 subtract 메서드들 구현 -> switch로 한번에 통합?
     public void AddHp(float amount)
     {
@@ -129,4 +139,5 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     {
         curThirst = Mathf.Max(curThirst - amount, 0.0f);
     }
+
 }

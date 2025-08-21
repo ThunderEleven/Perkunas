@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 809198479034453144}
   - component: {fileID: -947113760396338694}
   - component: {fileID: -3633240537827208419}
-  - component: {fileID: -8163582996975857127}
   m_Layer: 13
   m_Name: Wall_B
   m_TagString: Build
@@ -61,33 +60,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 11
---- !u!54 &-8163582996975857127
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 403175423537019125}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &8111819176569988775
 GameObject:
   m_ObjectHideFlags: 0

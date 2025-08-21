@@ -21,15 +21,11 @@ public class UIManager : MonoSingleton<UIManager>
         CreateUI<UIPause>();
         CreateUI<UIDamageIndicator>();
         CreateUI<UICrafting>();
+        CreateUI<UIGameOver>();
         
         uiStack.Push(GetUI<UIMain>());
         uiStack.Push(GetUI<UIDamageIndicator>());
         uiStack.Push(GetUI<UIQuickSlot>());
-    }
-
-    private void Update()
-    {
-        
     }
 
     // UI 관리

@@ -75,6 +75,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     {
         SubtractHunger(passiveHunger * Time.deltaTime);
         AddStamina(passiveStamina * Time.deltaTime);
+        SubtractThirst(passiveThirst * Time.deltaTime);
 
         if (curHunger <= 0f)
         {
@@ -112,6 +113,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
 
     public void AddStamina(float amount)
     {
+        if(curThirst > 0f && curStamina < maxStamina)
         curStamina = Mathf.Min(curStamina + amount, maxStamina);
     }
 

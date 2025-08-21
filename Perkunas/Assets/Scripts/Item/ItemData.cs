@@ -50,8 +50,8 @@ public class ItemData : ScriptableObject
     public GameObject equipPrefab;
 
     [Header("Building")]
-    public bool placable; // °Ç¹°·Î ¹èÄ¡ °¡´É ¿©ºÎ
-    public bool snapToGridEdge; // °İÀÚ¿¡ ¸ÂÃç ¹èÄ¡ ¿©ºÎ
+    public bool placable; // ê±´ë¬¼ë¡œ ë°°ì¹˜ ê°€ëŠ¥ ì—¬ë¶€
+    public bool snapToGridEdge; // ê²©ìì— ë§ì¶° ë°°ì¹˜ ì—¬ë¶€
     public GameObject buildingPrefab;
-    public List<ItemData> ignoreObjects; // ¹èÄ¡ ½Ã ¹«½ÃÇÒ ¿ÀºêÁ§Æ®µé
+    public List<ItemData> ignoreObjects; // ë°°ì¹˜ ì‹œ ë¬´ì‹œí•  ì˜¤ë¸Œì íŠ¸ë“¤
 }

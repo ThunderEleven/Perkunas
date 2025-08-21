@@ -14,11 +14,11 @@ public class RangeMonster : Monster
             Debug.Log("원거리 공격");
             animator.SetTrigger("Attack");
             Vector3 playerDirection = (CharacterManager.Instance.Player.transform.position - transform.position).normalized;
-            GameObject projectile = Instantiate(data.projectilePrefab, projectileSpawn.position, Quaternion.LookRotation(playerDirection));
-            projectile.transform.Rotate(data.projectileRotation);
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            MonsterProjectile monsterProjectile = projectile.GetComponent<MonsterProjectile>();
-            monsterProjectile.Init(data.damage);
+            GameObject go = Instantiate(data.projectilePrefab, projectileSpawn.position, Quaternion.LookRotation(playerDirection));
+            go.transform.Rotate(data.projectileRotation);
+            Rigidbody rb = go.GetComponent<Rigidbody>();
+            Projectile projectile = go.GetComponent<Projectile>();
+            projectile.Init(data.damage);
             if(rb != null) rb.AddForce(playerDirection * data.projectileSpeed, ForceMode.Impulse);
         }
     }

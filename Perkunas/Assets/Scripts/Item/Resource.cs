@@ -51,7 +51,7 @@ public class Resource : MonoBehaviour, IInteractable
     public void Gather(Vector3 hitPoint, Vector3 hitNormal)         // 히트지점 받기
     {
 
-        //HarvestAt(hitPoint + hitNormal * dropOffsetUp, hitNormal);
+        HarvestAt(hitPoint + hitNormal * dropOffsetUp, hitNormal);
     }
 
     // 실제 드랍 처리 로직

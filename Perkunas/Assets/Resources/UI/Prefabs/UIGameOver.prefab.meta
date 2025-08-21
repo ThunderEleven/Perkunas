@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Perkunas/Assets/Resources/UI/Prefabs/UIGameOver.prefab.meta
 guid: f435c29d017202f4bb7dccbb0808292d
+========
+guid: df79aa97eee921843bf2f53f365a66e4
+>>>>>>>> origin/develop:Perkunas/Assets/Prefabs/Equip/Equip_PerkunasHammer.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

@@ -20,4 +20,8 @@ MonoBehaviour:
   canStack: 0
   maxStackAmount: 0
   consumables: []
-  equipPrefab: {fileID: 8403653292129292693, guid: df79aa97eee921843bf2f53f365a66e4, type: 3}
+  equipPrefab: {fileID: 8403653292129292693, guid: 45346d2de8f64a44caed872bbf9be10b, type: 3}
+  placable: 0
+  snapToGridEdge: 0
+  buildingPrefab: {fileID: 0}
+  ignoreObjects: []

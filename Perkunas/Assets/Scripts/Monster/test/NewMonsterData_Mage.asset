@@ -9,23 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: ab294481a81fe5d4d9d77b5f472dab83, type: 3}
   m_Name: NewMonsterData_Mage
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
-  monsterPrefab: {fileID: 1340796939526148812, guid: 77615e84c4e638b49b1b6d2254aaa427, type: 3}
-  maxHealth: 1
-  walkSpeed: 1
-  runSpeed: 2
-  detectDistance: 15
-  minWanderDistance: 1
-  maxWanderDistance: 3
-  minWanderWaitTime: 1
-  maxWanderWaitTime: 2
+  monsterPrefab: {fileID: 0}
+  maxHealth: 0
+  walkSpeed: 0
+  runSpeed: 0
+  detectDistance: 0
+  minWanderDistance: 0
+  maxWanderDistance: 0
+  minWanderWaitTime: 0
+  maxWanderWaitTime: 0
   damage: 0
-  attackRate: 4
-  attackDistance: 15
-  fieldOfView: 120
-  isRangeMonster: 1
-  projectilePrefab: {fileID: 5746508365519237414, guid: 6e2d8bec1934c6e459abd63a046b170d, type: 3}
-  projectileSpeed: 2
-  projectileRotation: {x: -90, y: 0, z: 0}
+  attackRate: 0
+  attackDistance: 0
+  fieldOfView: 0
+  isRangeMonster: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 0
+  projectileRotation: {x: 0, y: 0, z: 0}

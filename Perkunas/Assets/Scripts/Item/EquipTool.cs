@@ -15,6 +15,10 @@ public class EquipTool : Equip
 
     [Header("Combat")]
     public bool doesDealDamage;
+    public bool isRangedWeapon;
+    public GameObject projectilePrefab;
+    public float projectileSpeed;
+    
     public int damage;
 
     private Animator animator;
@@ -46,20 +50,32 @@ public class EquipTool : Equip
 
     public void OnHit()
     {
-        Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-        RaycastHit hit;
-
-        if(Physics.Raycast(ray, out hit, attackDistance))
+        if (!isRangedWeapon)
         {
-            if(doesGatherResources && hit.collider.TryGetComponent(out Resource resource))
-            {
-                resource.Gather(hit.point, hit.normal);
-            }
+            Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit;
 
-            if (doesDealDamage && hit.collider.TryGetComponent(out IDamagable damagable))
+            if(Physics.Raycast(ray, out hit, attackDistance))
             {
-                damagable.TakePhysicalDamage(damage);
+                if(doesGatherResources && hit.collider.TryGetComponent(out Resource resource))
+                {
+                    resource.Gather(hit.point, hit.normal);
+                }
+
+                if (doesDealDamage && hit.collider.TryGetComponent(out IDamagable damagable))
+                {
+                    damagable.TakePhysicalDamage(damage);
+                }
             }
+        }
+        else
+        {
+            Debug.Log("원거리 공격");
+            GameObject go = Instantiate(projectilePrefab, CharacterManager.Instance.player.projectileSpawn.position, Quaternion.identity);
+            Rigidbody rb = go.GetComponent<Rigidbody>();
+            Projectile proj = go.GetComponent<Projectile>();
+            proj.Init(damage);
+            if(rb != null) rb.AddForce(Camera.main.transform.forward * projectileSpeed, ForceMode.Impulse);
         }
     }
 

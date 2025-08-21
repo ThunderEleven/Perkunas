@@ -86,20 +86,22 @@ public class Monster : MonoBehaviour, IDamagable
         }
         
         // Debug.Log($"상태 : {aiState} | 플레이어 거리 : {playerDistance}");
-        
-        switch (aiState)
+        if (gameObject.activeInHierarchy)
         {
-            case AIState.Idle:
-            case AIState.Wandering:
-                PassiveUpdate();
-                break;
-            case AIState.Returning:
-                // Debug.Log("너무 멀어짐. 돌아감.");
-                ReturningUpdate();
-                break;
-            case AIState.Attacking:
-                AttackingUpdate();
-                break;
+            switch (aiState)
+            {
+                case AIState.Idle:
+                case AIState.Wandering:
+                    PassiveUpdate();
+                    break;
+                case AIState.Returning:
+                    // Debug.Log("너무 멀어짐. 돌아감.");
+                    ReturningUpdate();
+                    break;
+                case AIState.Attacking:
+                    AttackingUpdate();
+                    break;
+            }
         }
     }
 
@@ -152,7 +154,7 @@ public class Monster : MonoBehaviour, IDamagable
 
     void WanderToNewLocation()
     {
-        if (aiState != AIState.Idle) return;
+        if (aiState != AIState.Idle || !gameObject.activeInHierarchy) return;
         SetState(AIState.Wandering);
         agent.SetDestination(GetWanderLocation());
     }

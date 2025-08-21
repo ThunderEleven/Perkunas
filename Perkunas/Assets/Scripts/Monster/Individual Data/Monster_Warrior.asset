@@ -16,15 +16,15 @@ MonoBehaviour:
   maxHealth: 1
   walkSpeed: 3
   runSpeed: 6
-  detectDistance: 6
+  detectDistance: 10
   minWanderDistance: 2
   maxWanderDistance: 5
   minWanderWaitTime: 2
   maxWanderWaitTime: 3
-  damage: 0
+  damage: 5
   attackRate: 5
-  attackDistance: 2
-  fieldOfView: 120
+  attackDistance: 4
+  fieldOfView: 270
   isRangeMonster: 0
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0

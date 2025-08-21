@@ -469,14 +469,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHp: 0
   maxHp: 100
-  startHp: 50
+  startHp: 100
   passiveHp: 5
   hpUIBar: {fileID: 0}
-  noHungerHealthDecay: 10
+  noHungerHealthDecay: 2
   curStamina: 0
   maxStamina: 100
-  startStamina: 90
-  passiveStamina: 5
+  startStamina: 100
+  passiveStamina: 20
   staminaUIBar: {fileID: 0}
   curHunger: 0
   maxHunger: 100
@@ -486,7 +486,7 @@ MonoBehaviour:
   curThirst: 0
   maxThirst: 100
   startThirst: 100
-  passiveThirst: 5
+  passiveThirst: 20
   thirstUIBar: {fileID: 0}
 --- !u!114 &4100993499126989742
 MonoBehaviour:

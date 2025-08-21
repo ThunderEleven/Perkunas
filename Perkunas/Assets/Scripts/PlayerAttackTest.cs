@@ -11,7 +11,7 @@ public class PlayerAttackTest : MonoBehaviour
         {
             if (other.gameObject.TryGetComponent(out Monster monster))
             {
-                monster.TakeDamage(5);
+                monster.TakePhysicalDamage(5);
                 Debug.Log("데미지를 입히다.");
             }
         }

@@ -162,20 +162,20 @@ public class PlayerController : MonoBehaviour
         Monster enemy = hit.collider.GetComponent<Monster>();
         if (enemy != null)
         {
-            enemy.TakeDamage(attackDamage);
+            enemy.TakePhysicalDamage(attackDamage);
             Debug.Log($"Hit {hit.collider.name} for {attackDamage} damage!");
         }
     }
 
-    // [SerializeField]GameObject buildingPrefab; // Ãß°¡
+    // [SerializeField]GameObject buildingPrefab; // ï¿½ß°ï¿½
 
-    // public void OnBuild(InputAction.CallbackContext context) // Ãß°¡
+    // public void OnBuild(InputAction.CallbackContext context) // ï¿½ß°ï¿½
     // {
     //     if (context.phase == InputActionPhase.Started)
     //     {
     //         CharacterManager.Instance.Player.buildingManager.PlaceObject(transform.position + Vector3.forward, buildingPrefab);
     //     }
 
-    //      CharacterManager.Instance.Player.buildingManager.EndVisualisingObject(); ¾îµð¼±°¡ Áö¿ö¾ßÇÔ
+    //      CharacterManager.Instance.Player.buildingManager.EndVisualisingObject(); ï¿½ï¿½ð¼±°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     // }
 }

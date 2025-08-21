@@ -94,10 +94,11 @@ GameObject:
   - component: {fileID: 6057910365079271353}
   - component: {fileID: 267664450682036621}
   - component: {fileID: 1232331933569727480}
-  - component: {fileID: 9057337502799863050}
+  - component: {fileID: 5728636248204535868}
+  - component: {fileID: 9008060621868710895}
   m_Layer: 6
   m_Name: Resource_Tree
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,8 +138,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.48011842, y: 3.014874, z: 0.35478264}
-  m_Center: {x: 0.07466687, y: 1.4544001, z: -0.013989598}
+  m_Size: {x: 0.62922585, y: 3.7846196, z: 0.56619143}
+  m_Center: {x: 0.00011318922, y: 1.8392729, z: -0.009462774}
 --- !u!114 &1232331933569727480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,32 +153,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  maxHealth: 3
-  capacity: 0
---- !u!54 &9057337502799863050
-Rigidbody:
+  capacity: 3
+  dropCountPerHit: 1
+  respawnTime: 30
+  dropItemData: {fileID: 11400000, guid: 26ca027ae88415446ada0be8ca824c76, type: 2}
+  dropPool: {fileID: 5728636248204535868}
+  dropOffsetUp: 0.5
+  dropSpreadRadius: 0.3
+--- !u!114 &5728636248204535868
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6860223857019414868}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fe96b6980e525409a32fc6e53532d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5809123457131274735, guid: aae0f7751bf658545a6731c9bc6d2883, type: 3}
+  initialSize: 10
+--- !u!208 &9008060621868710895
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860223857019414868}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

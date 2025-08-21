@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -947113760396338694}
   - component: {fileID: 7221274807362410908}
   - component: {fileID: 8585025067350236662}
+  - component: {fileID: -3633240537827208419}
   m_Layer: 13
   m_Name: Wall_B
   m_TagString: Build
@@ -82,6 +83,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 5785506702161948928, guid: b2824ee9dcdd7d043905de58567afb31, type: 3}
   initialSize: 0
+--- !u!114 &-3633240537827208419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403175423537019125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6712aeb9c2389ac438e0dcb140186cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8111819176569988775
 GameObject:
   m_ObjectHideFlags: 0

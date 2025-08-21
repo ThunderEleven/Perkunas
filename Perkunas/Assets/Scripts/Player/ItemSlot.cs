@@ -2,7 +2,8 @@
 //using UnityEngine;
 //using UnityEngine.UI;
 
-//public class ItemSlot : MonoBehaviour
+//public class
+//: MonoBehaviour
 //{
 //    public ItemData item;
 

@@ -128,6 +128,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     {
         Debug.Log("플레이어가 데미지 입음");
         SubtractHp(damageAmount);
+        SoundManager.Instance.DamagedClip();
         onTakeDamage?.Invoke();
     }
 

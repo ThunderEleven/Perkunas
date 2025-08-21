@@ -1,12 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Perkunas/Assets/Scripts/Player.meta
-guid: 85eaa3df90c0f98478dba0e72a973933
-folderAsset: yes
-DefaultImporter:
-========
-guid: 5f72f4db8f236f54d9f5ac96fb4e2dfa
+guid: 941ab724bba34574097e7be09df7b09d
 NativeFormatImporter:
->>>>>>>> 60d7033 ([feat] 몬스터 SO화):Perkunas/Assets/Scripts/Monster/Individual Data/Monster_Rogue.asset.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

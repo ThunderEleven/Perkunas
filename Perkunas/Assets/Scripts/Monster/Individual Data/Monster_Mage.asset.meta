@@ -1,12 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Perkunas/Assets/Prefabs/Player.meta
-guid: f17c597f3ca7b97498f659ebc529e400
-folderAsset: yes
-DefaultImporter:
-========
-guid: f8ad9d0c78aeb1f4591f033c697187c6
+guid: 924204ae3a205b9418e5fbf3f19f9551
 NativeFormatImporter:
->>>>>>>> 60d7033 ([feat] 몬스터 SO화):Perkunas/Assets/Scripts/Monster/Individual Data/Monster_Mage.asset.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

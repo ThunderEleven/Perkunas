@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         {
             curMovementInput = context.ReadValue<Vector2>();
         }
-        else if(context.phase == InputActionPhase.Canceled)
+        else if (context.phase == InputActionPhase.Canceled)
         {
             curMovementInput = Vector2.zero;
         }
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && isGrounded())
+        if (context.phase == InputActionPhase.Started && isGrounded())
         {
             rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
             new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
         };
 
-        for(int i = 0; i < rays.Length; i++)
+        for (int i = 0; i < rays.Length; i++)
         {
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
@@ -115,9 +115,21 @@ public class PlayerController : MonoBehaviour
     void DetectiveRayInFront()
     {
         Ray ray = new Ray(cameraContainer.position, cameraContainer.forward);
-        if(Physics.Raycast(ray, out RaycastHit hit , detectiveRaydistance, detectiveLayerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, detectiveRaydistance, detectiveLayerMask))
         {
             Debug.Log("감지된 오브젝트 : " + hit.collider.name);
         }
+    }
+
+    [SerializeField]GameObject buildingPrefab; // 추가
+
+    public void OnBuild(InputAction.CallbackContext context) // 추가
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            CharacterManager.Instance.Player.buildingManager.PlaceObject(transform.position + Vector3.forward, buildingPrefab);
+        }
+
+        // CharacterManager.Instance.Player.buildingManager.EndVisualisingObject(); 어디선가 지워야함
     }
 }

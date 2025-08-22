@@ -19,7 +19,7 @@ public class UIPause : UIBase
     public override void OpenUI()
     {
         pauseUI.SetActive(true);
-        UIManager.Instance.uiStack.Push(this);
+        //UIManager.Instance.uiStack.Push(this);
         bgmSlider.value = SoundManager.Instance.MusicVolume;
         sfxSlider.value = SoundManager.Instance.SoundEffectVolume;
         Time.timeScale = 0f;
@@ -28,7 +28,7 @@ public class UIPause : UIBase
     public override void CloseUI()
     {
         pauseUI.SetActive(false);
-        UIManager.Instance.uiStack.Pop();
+        //UIManager.Instance.uiStack.Pop();
         CharacterManager.Instance.Player.controller.isPaused = false;
         Time.timeScale = 1f;
     }

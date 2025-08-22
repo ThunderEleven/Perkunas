@@ -81,15 +81,12 @@ public class UIInventory : UIBase
         if (IsOpen())
         { 
             inventoryWindow.SetActive(false);
-            UIManager.Instance.uiStack.Pop();
+            //UIManager.Instance.uiStack.Pop();
         }
         else
         {
-            if (UIManager.Instance.uiStack.Count < 4)
-            {
-                inventoryWindow.SetActive(true);
-                UIManager.Instance.uiStack.Push(this);
-            }
+            inventoryWindow.SetActive(true);
+            //UIManager.Instance.uiStack.Push(this);
         }
     }
 
@@ -428,6 +425,6 @@ public class UIInventory : UIBase
     {
         inventoryWindow.SetActive(false);
         CharacterManager.Instance.Player.controller.isInInventory = false;
-        UIManager.Instance.uiStack.Pop();
+        //UIManager.Instance.uiStack.Pop();
     }
 }

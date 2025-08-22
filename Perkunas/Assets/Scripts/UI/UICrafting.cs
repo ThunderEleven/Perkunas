@@ -108,7 +108,7 @@ public class UICrafting : UIBase
     public override void OpenUI()
     {
         craftingUI.SetActive(true);
-        UIManager.Instance.uiStack.Push(this);
+        //UIManager.Instance.uiStack.Push(this);
     }
 
     public override void CloseUI()
@@ -126,7 +126,7 @@ public class UICrafting : UIBase
         }
         
         craftingUI.SetActive(false);
-        UIManager.Instance.uiStack.Pop();
+        //UIManager.Instance.uiStack.Pop();
         CharacterManager.Instance.Player.controller.isCrafting = false;
     }
 }

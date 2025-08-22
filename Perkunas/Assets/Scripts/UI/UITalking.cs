@@ -44,7 +44,7 @@ public class UITalking : UIBase
         TalkingUI.SetActive(true);
         CharacterManager.Instance.Player.controller.isNpc = true;
         CharacterManager.Instance.Player.controller.ToggleCursor();
-        UIManager.Instance.uiStack.Push(this);
+        //UIManager.Instance.uiStack.Push(this);
     }
 
     public override void CloseUI()
@@ -52,7 +52,7 @@ public class UITalking : UIBase
         TalkingUI.SetActive(false);
         CharacterManager.Instance.Player.controller.isNpc = false;
         CharacterManager.Instance.Player.controller.ToggleCursor();
-        UIManager.Instance.uiStack.Pop();
+        //UIManager.Instance.uiStack.Pop();
     }
 
     // npc와 상호작용하면 호출될 메서드 -> 대화UI에게 정보들을 넘겨준다

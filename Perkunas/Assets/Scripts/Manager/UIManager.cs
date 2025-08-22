@@ -10,7 +10,7 @@ public class UIManager : MonoSingleton<UIManager>
     private bool _isCleaning;
     private Dictionary<string, UIBase> _uiDictionary = new Dictionary<string, UIBase>();
 
-    public Stack<UIBase> uiStack = new Stack<UIBase>();
+    //public Stack<UIBase> uiStack = new Stack<UIBase>();
 
     private void Awake()
     {
@@ -23,9 +23,9 @@ public class UIManager : MonoSingleton<UIManager>
         CreateUI<UICrafting>();
         CreateUI<UIGameOver>();
         
-        uiStack.Push(GetUI<UIMain>());
-        uiStack.Push(GetUI<UIDamageIndicator>());
-        uiStack.Push(GetUI<UIQuickSlot>());
+        // uiStack.Push(GetUI<UIMain>());
+        // uiStack.Push(GetUI<UIDamageIndicator>());
+        // uiStack.Push(GetUI<UIQuickSlot>());
     }
 
     // UI 관리

@@ -141,36 +141,31 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                var upUI = UIManager.Instance.uiStack.Peek();
-                if (upUI.GetComponent<UIMain>() || upUI.GetComponent<UIDamageIndicator>() || upUI.GetComponent<UIQuickSlot>())
+                if (isPaused)
                 {
-                    return;
-                }
-                else
-                {
-                    UIManager.Instance.uiStack.Peek().CloseUI();
+                    UIManager.Instance.CloseUI<UIPause>();
                     isPaused = false;
                     ToggleCursor();
                 }
-
-                // UIManager.Instance.CloseUI<UIPause>();
-                // isPaused = false;
-                // ToggleCursor();
+                else if (isNpc)
+                {
+                    UIManager.Instance.CloseUI<UITalking>();
+                    isNpc = false;
+                    ToggleCursor();
+                }
+                else if (isCrafting)
+                {
+                    UIManager.Instance.CloseUI<UICrafting>();
+                    isCrafting = false;
+                    ToggleCursor();
+                }
+                else if (isInInventory)
+                {
+                    UIManager.Instance.CloseUI<UIInventory>();
+                    isInInventory = false;
+                    ToggleCursor();
+                }
             }
-
-            // if (isCrafting)
-            // {
-            //     UIManager.Instance.CloseUI<UICrafting>();
-            //     ToggleCursor();
-            //     isCrafting = false;
-            // }
-            //
-            // if (isInInventory)
-            // {
-            //     inventory?.Invoke();
-            //     ToggleCursor();
-            //     isInInventory = false;
-            // }
         }
     }
     

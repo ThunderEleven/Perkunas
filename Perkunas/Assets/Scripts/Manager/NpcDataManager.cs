@@ -52,10 +52,10 @@ public class NpcDataManager : MonoSingleton<NpcDataManager>
         }
 
         // 확인용
-        foreach (var d in dialogues)
-        {
-            Debug.Log($"[{d.id}] {d.npcName}: {d.dialogText}");
-        }
+        // foreach (var d in dialogues)
+        // {
+        //     Debug.Log($"[{d.id}] {d.npcName}: {d.dialogText}");
+        // }
     }
     
 }

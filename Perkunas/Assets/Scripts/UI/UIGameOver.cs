@@ -16,14 +16,14 @@ public class UIGameOver : UIBase
     public override void OpenUI()
     {
         BackGround.SetActive(true);
-        UIManager.Instance.uiStack.Push(this);
+        //UIManager.Instance.uiStack.Push(this);
         CharacterManager.Instance.Player.controller.ToggleCursor();
         Time.timeScale = 0f;
     }
 
     public override void CloseUI()
     {
-        UIManager.Instance.uiStack.Pop();
+        //UIManager.Instance.uiStack.Pop();
         BackGround.SetActive(false);
         CharacterManager.Instance.Player.controller.isGameOver = false;
         Time.timeScale = 1f;

@@ -17,6 +17,7 @@ public class UIGameOver : UIBase
     {
         BackGround.SetActive(true);
         //UIManager.Instance.uiStack.Push(this);
+        CharacterManager.Instance.Player.controller.isGameOver = true;
         CharacterManager.Instance.Player.controller.ToggleCursor();
         Time.timeScale = 0f;
     }

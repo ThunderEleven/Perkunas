@@ -79,6 +79,11 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         {
             curHp = 0;
         }
+
+        if (transform.position.y < -10f && !isDie)
+        {
+            SubtractHp(50 * Time.deltaTime);
+        }
     }
 
     // UI 업데이트

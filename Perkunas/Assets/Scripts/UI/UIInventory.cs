@@ -423,4 +423,11 @@ public class UIInventory : UIBase
     {
         return false;
     }
+
+    public override void CloseUI()
+    {
+        inventoryWindow.SetActive(false);
+        CharacterManager.Instance.Player.controller.isInInventory = false;
+        UIManager.Instance.uiStack.Pop();
+    }
 }

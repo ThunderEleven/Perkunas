@@ -23,8 +23,9 @@ public class UIGameOver : UIBase
 
     public override void CloseUI()
     {
-        BackGround.SetActive(false);
         UIManager.Instance.uiStack.Pop();
+        BackGround.SetActive(false);
+        CharacterManager.Instance.Player.controller.isGameOver = false;
         Time.timeScale = 1f;
     }
 

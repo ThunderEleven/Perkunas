@@ -23,9 +23,11 @@ public class PlayerController : MonoBehaviour
     private new Rigidbody rigidbody;
 
     public bool canLook = true;
-    private bool isPaused = false;
+    public bool isPaused = false;
     public bool isCrafting = false;
-    private bool isInInventory = false;
+    public bool isInInventory = false;
+    public bool isNpc = false;
+    public bool isGameOver = false;
 
     public Action inventory;
 
@@ -74,24 +76,6 @@ public class PlayerController : MonoBehaviour
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
     }
 
-    public void OnCrafting(InputAction.CallbackContext context)
-    {
-        if (!isCrafting)
-        {
-            if (UIManager.Instance.uiStack.Count < 4)
-            {
-                UIManager.Instance.GetUI<UICrafting>().OpenUI();
-                ToggleCursor();
-                isCrafting = true;
-            }
-        }
-        else
-        {
-            UIManager.Instance.CloseUI<UICrafting>();
-            isCrafting = false;
-        }
-    }
-
     public void OnMove(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
@@ -117,39 +101,76 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool isMainUIState()
+    {
+        if (!isPaused && !isCrafting && !isInInventory && !isNpc && !isGameOver)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public void OnCrafting(InputAction.CallbackContext context)
+    {
+        if (isMainUIState())
+        {
+            UIManager.Instance.GetUI<UICrafting>().OpenUI();
+            isCrafting = true;
+            ToggleCursor();
+        }
+        else
+        {
+            UIManager.Instance.CloseUI<UICrafting>();
+            isCrafting = false;
+            ToggleCursor();
+        }
+    }
+    
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
-            if (!isPaused)
+            if (isMainUIState())
             {
-                if (UIManager.Instance.uiStack.Count < 4)
-                {
-                    UIManager.Instance.OpenUI<UIPause>();
-                    isPaused = true;
-                    ToggleCursor();
-                }
+                UIManager.Instance.OpenUI<UIPause>();
+                isPaused = true;
+                ToggleCursor();
             }
             else
             {
-                UIManager.Instance.CloseUI<UIPause>();
-                isPaused = false;
-                ToggleCursor();
+                var upUI = UIManager.Instance.uiStack.Peek();
+                if (upUI.GetComponent<UIMain>() || upUI.GetComponent<UIDamageIndicator>() || upUI.GetComponent<UIQuickSlot>())
+                {
+                    return;
+                }
+                else
+                {
+                    UIManager.Instance.uiStack.Peek().CloseUI();
+                    isPaused = false;
+                    ToggleCursor();
+                }
+
+                // UIManager.Instance.CloseUI<UIPause>();
+                // isPaused = false;
+                // ToggleCursor();
             }
 
-            if (isCrafting)
-            {
-                UIManager.Instance.CloseUI<UICrafting>();
-                ToggleCursor();
-                isCrafting = false;
-            }
-
-            if (isInInventory)
-            {
-                inventory?.Invoke();
-                ToggleCursor();
-                isInInventory = false;
-            }
+            // if (isCrafting)
+            // {
+            //     UIManager.Instance.CloseUI<UICrafting>();
+            //     ToggleCursor();
+            //     isCrafting = false;
+            // }
+            //
+            // if (isInInventory)
+            // {
+            //     inventory?.Invoke();
+            //     ToggleCursor();
+            //     isInInventory = false;
+            // }
         }
     }
     
@@ -184,13 +205,13 @@ public class PlayerController : MonoBehaviour
         if (callbackContext.phase == InputActionPhase.Started)
         {
             inventory?.Invoke();
-            ToggleCursor();
             isInInventory = !isInInventory;
+            ToggleCursor();
         }
     }
     public void ToggleCursor()
     {
-        if (UIManager.Instance.uiStack.Count >= 4)
+        if (!isMainUIState())
         {
             Cursor.lockState = CursorLockMode.None;
             canLook = false;

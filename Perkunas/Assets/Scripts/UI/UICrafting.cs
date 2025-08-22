@@ -128,6 +128,5 @@ public class UICrafting : UIBase
         craftingUI.SetActive(false);
         UIManager.Instance.uiStack.Pop();
         CharacterManager.Instance.Player.controller.isCrafting = false;
-        CharacterManager.Instance.Player.controller.ToggleCursor();
     }
 }

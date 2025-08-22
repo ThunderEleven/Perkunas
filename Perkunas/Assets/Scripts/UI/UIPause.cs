@@ -29,6 +29,7 @@ public class UIPause : UIBase
     {
         pauseUI.SetActive(false);
         UIManager.Instance.uiStack.Pop();
+        CharacterManager.Instance.Player.controller.isPaused = false;
         Time.timeScale = 1f;
     }
 

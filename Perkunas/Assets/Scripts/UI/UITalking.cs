@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,12 +42,16 @@ public class UITalking : UIBase
     public override void OpenUI()
     {
         TalkingUI.SetActive(true);
+        CharacterManager.Instance.Player.controller.isNpc = true;
+        CharacterManager.Instance.Player.controller.ToggleCursor();
         UIManager.Instance.uiStack.Push(this);
     }
 
     public override void CloseUI()
     {
         TalkingUI.SetActive(false);
+        CharacterManager.Instance.Player.controller.isNpc = false;
+        CharacterManager.Instance.Player.controller.ToggleCursor();
         UIManager.Instance.uiStack.Pop();
     }
 
